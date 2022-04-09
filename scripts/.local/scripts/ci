@@ -1,0 +1,10 @@
+#!/bin/sh
+
+result="$(ping -W 3 -q -c 1 archlinux.org >/dev/null 2>&1; echo $?)"
+
+if [ "$result" -eq 0 ]; then
+    echo 1
+    exit
+fi
+
+echo 0

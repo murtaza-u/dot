@@ -1,0 +1,10 @@
+#!/bin/sh
+
+location="$HOME/.cache/crypto"
+
+[ "$(stat -c %y "$location" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] &&
+    [ "$(ci)" -eq 1 ] &&
+    curl -s rate.sx > "$location"
+
+price=$(sed '13!d' "$location" | sed 's/│//g' | awk '{ print $4 ": $" $6 }' | sed -r 's/\x1B\[(([0-9]+)(;[0-9]+)*)?[m,K,H,f,J]//g')
+echo "🪙$price"

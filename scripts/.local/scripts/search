@@ -1,0 +1,28 @@
+#!/bin/bash
+
+declare -A url
+
+url["duckduckgo"]="https://duckduckgo.com/?q="
+url["youtube"]="https://www.youtube.com/results?search_query="
+url["wiby.me"]="https://wiby.me/?q="
+url["archwiki"]="https://wiki.archlinux.org/index.php?search="
+url["archpkg"]="https://archlinux.org/packages/?sort=&q="
+url["aur"]="https://aur.archlinux.org/packages/?O=0&K="
+url["learnxinyminutes"]="https://learnxinyminutes.com/docs/"
+url["stackoverflow"]="https://stackoverflow.com/search?q="
+url["reddit"]="https://www.reddit.com/search/?q="
+url["github"]="https://github.com/search?q="
+url["gitlab"]="https://gitlab.com/search?search="
+url["wikipedia"]="https://en.wikipedia.org/wiki/"
+url["urban"]="https://www.urbandictionary.com/define.php?term="
+url["google"]="https://www.google.com/search?q="
+url["amazon"]="https://www.amazon.com/s?k="
+url["wallhaven"]="https://wallhaven.cc/search?atleast=1920x1080&sorting=relevance&q="
+url["dockerhub"]="https://hub.docker.com/search?q="
+
+engine="$(printf "%s\n" "${!url[@]}" | sort | dmenu -i -l 20 -p 'Choose search engine:')" || exit
+
+query="$(echo | dmenu -i -p "Searching $engine" | sed 's/ /+/g')" || exit
+[ -z "$query" ] && exit
+
+exec "$BROWSER" "${url[$engine]}$query"

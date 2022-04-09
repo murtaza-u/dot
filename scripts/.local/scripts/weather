@@ -1,0 +1,17 @@
+#!/bin/sh
+
+cache="$HOME/.cache/weatherreport"
+
+# check if connected to the internet
+[ "$(ci)" -eq 1 ] &&
+    curl -sf 'http://wttr.in?format=%c(%C)+%t+(%f)' > "$cache"
+
+report="$(cat "$cache")"
+
+if [ "${#report}" -gt 27 ]; then
+    emoticon="$(echo "$report" | cut -d'(' -f1 | xargs)"
+    tempt="$(echo "$report" | cut -d')' -f2 | xargs))"
+    report="$emoticon $tempt"
+fi
+
+echo "$report"

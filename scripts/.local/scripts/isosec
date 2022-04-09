@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# credits: https://raw.githubusercontent.com/rwxrob/dot/main/scripts/isosec
+exec date -u +%Y%m%d%H%M%S "$@"

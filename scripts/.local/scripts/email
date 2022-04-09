@@ -1,0 +1,14 @@
+#!/bin/bash
+
+dir="$HOME/.config/mutt/"
+accounts="$(find "$dir" -name "account.*" | xargs -I {} basename {} | sed 's/account\.//')"
+
+if [ -t 0 ]; then
+    select account in $accounts; do
+        exec neomutt -F "${dir}account.${account}"
+        exit
+    done
+fi
+
+account="$(echo "$accounts" | dmenu -i -p "Account: ")" || exit
+exec "$TERMINAL" -e neomutt -F "${dir}account.${account}"

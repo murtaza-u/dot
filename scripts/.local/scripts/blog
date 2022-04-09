@@ -1,0 +1,85 @@
+#!/bin/bash
+
+src="src"
+template="$src/template.html"
+blogs="blogs"
+archive="archive.html"
+
+rss() {
+    select file in src/*.md; do
+        file="${file##*/}"
+        break
+    done
+
+    rssfile="rss.xml"
+    title="$(grep "title:" "src/$file" | head -1 | cut -d':' -f2 | xargs)"
+    desc="$(grep "description:" "src/$file" | head -1 | cut -d':' -f2 | xargs)"
+    link="https://murtazau.xyz/blogs/${file%md}html"
+    guid="$link"
+
+    item="<!-- insert_here -->
+
+<item>
+<title>$title</title>
+<guid>$guid</guid>
+<link>$link</link>
+<description>$desc</description>
+</item>"
+
+    awk -v i="$item" '{
+        sub(/<!-- insert_here -->/, i);
+        print;
+    }' "$rssfile" > tmp.xml
+
+    mv tmp.xml "$rssfile"
+}
+
+parse() {
+    select file in src/*.md; do
+        file="${file##*/}"
+        break
+    done
+
+    title="$(grep "title:" "$src/$file" | head -1 | cut -d':' -f2 | xargs)"
+    desc="$(grep "description:" "$src/$file" | head -1 | cut -d':' -f2 | xargs)"
+    html="$(sed -E '/\-{3}$/,/\-{3}$/d' "$src/$file" | 2html | sed 's/\\/\\\\/g')"
+    htmlFile="${file%md}html"
+    url="https://murtazau.xyz/blogs/$htmlFile"
+
+    awk -v t="$title" -v u="$url" -v desc="$desc" -v html="$html" '{
+        sub(/<!-- title -->/, t);
+        sub(/<!-- description -->/, desc);
+        sub(/<!-- url -->/, u);
+        sub(/<!-- article -->/, html);
+        print;
+    }' "$template" | sed 's/<!-- article -->/\&/g' > "$blogs/$htmlFile"
+
+    time="$(date '+%b %d')"
+
+    newEntry="<!-- new entry -->
+                    <li>
+                        <time>$time</time>
+                        <a href=\"blogs/$htmlFile\">$title</a>
+                    </li>"
+
+    awk -v newEntry="$newEntry" '{
+        sub(/<!-- new entry -->/, newEntry);
+        print;
+    }' "$archive" > tmp.html
+
+    mv tmp.html "$archive"
+}
+
+upload() {
+    rsync -uvrP --delete-after --exclude=".git/" \
+        ~/Repos/website/ user@murtazau.xyz:/path/to/website
+}
+
+while getopts "pru" arg 2>/dev/null; do
+    case "${arg}" in
+        p) parse ;;
+        r) rss ;;
+        u) upload ;;
+        *) echo "invalid option" ;;
+    esac
+done

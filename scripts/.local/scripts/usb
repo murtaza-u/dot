@@ -1,0 +1,80 @@
+#!/bin/bash
+
+help() {
+    printf "dm-usbmount [options]\n
+    -h\tDisplays this help menu
+    -m\tMount usb drive
+    -u\tUnmount usb drive\n
+    Drives are mounted at /run/media\n"
+}
+
+drive_count() {
+    echo "$1" | wc -l
+}
+
+notify() {
+    notify-send --icon=~/.config/dunst/usb.png "$1"
+}
+
+mount_all() {
+    while IFS= read -r drive
+    do
+        udisksctl mount -b "${drive%% *}"
+    done < <(printf '%s\n' "$mountable")
+}
+
+unmount_all() {
+    while IFS= read -r drive
+    do
+        udisksctl unmount -b "$drive"
+    done < <(printf '%s\n' "$mounted")
+}
+
+append_all() {
+    options="$1"
+    count="$(drive_count "$options")"
+    [ "$count" -gt 1 ] && options="${options}\nall"
+    echo "$options"
+}
+
+mount() {
+    mountable="$(lsblk -lp | awk '/^\/dev\/sd.*part $/ { print $1 " ("$4")" }')"
+    [ -z "$mountable" ] && exit
+
+    options="$(append_all "$mountable")"
+
+    chosen="$(echo -e "$options" | dmenu -n -i -p "Drive to mount?")" || exit
+    if [ "$chosen" = "all" ]; then
+        mount_all
+    else
+        udisksctl mount -b "${chosen%% *}"
+    fi
+
+    notify "USB mounted"
+}
+
+unmount() {
+    mounted="$(lsblk -lp | awk '/run/ { print $1 }')"
+    [ -z "$mounted" ] && exit
+
+    options="$(append_all "$mounted")"
+
+    chosen="$(echo -e "$options" | dmenu -n -i -p "Drive to unmount?")" || exit
+
+    if [[ "$chosen" = "all" ]]; then
+        unmount_all
+    else
+        udisksctl unmount -b "$chosen"
+    fi
+
+    notify "USB unmounted"
+}
+
+while getopts "hmu" arg 2>/dev/null; do
+    case "${arg}" in
+        h) help ;;
+        m) mount ;;
+        u) unmount ;;
+        *) printf "invalid option\n%s -h for help" "$0" ;;
+    esac
+done

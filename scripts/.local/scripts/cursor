@@ -1,0 +1,18 @@
+#!/bin/sh
+
+hidecursor() {
+    if type setterm >/dev/null 2>&1; then
+        exec setterm --cursor off
+    fi
+}
+
+showcursor() {
+    if type setterm >/dev/null 2>&1; then
+        exec setterm --cursor on
+    fi
+}
+
+case "$1" in
+    "on") showcursor ;;
+    "off") hidecursor ;;
+esac

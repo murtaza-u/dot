@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# toggles lemonbar
+
+id="$(xdotool search --name bar)"
+state="$(xwininfo -id "$id" | grep "Map State:")"
+
+if [[ "$state" == *IsViewable ]]; then
+    exec xdotool windowunmap "$id"
+else
+    exec xdotool windowmap "$id"
+fi

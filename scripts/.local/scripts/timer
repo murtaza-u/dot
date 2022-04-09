@@ -1,0 +1,7 @@
+#!/bin/sh
+
+clear
+cursor off
+trap 'cursor on' 2
+countdown "$@"
+cursor on

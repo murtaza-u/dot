@@ -1,0 +1,4 @@
+#!/bin/sh
+
+ram_used="$(free -h | awk '/^Mem/ { print $3 }')"
+echo "MEM:$ram_used"

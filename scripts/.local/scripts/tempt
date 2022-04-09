@@ -1,0 +1,3 @@
+#!/bin/sh
+
+printf "🔥%s\n" "$(sensors | awk '/^Tctl/ { print $2 }')"

@@ -1,0 +1,38 @@
+#!/bin/sh
+
+config="$HOME"/.config/alacritty/alacritty.yml
+curr_opacity="$(awk -F':' '/opacity: [0-9]?.[0-9]*/ { print $2 }' "$config" | xargs)"
+delta="0.05"
+
+set_opacity(){
+    if [ -z "$1" ]; then
+        echo "[value missing]"
+        exit 1
+    fi
+
+    sed -i "s/opacity: $curr_opacity/opacity: $1/" "$config"
+}
+
+increase(){
+    new_opacity="$(echo "$curr_opacity + $delta" | bc -l)"
+    [ "$(echo "$new_opacity > 1" | bc -l)" -eq 1 ] && new_opacity="1.0"
+    set_opacity "$new_opacity"
+}
+
+decrease(){
+    new_opacity="$(echo "$curr_opacity - $delta" | bc -l)"
+    [ "$(echo "$new_opacity < 0" | bc -l)" -eq 1 ] && new_opacity="0"
+    set_opacity "$new_opacity"
+}
+
+noOpt=1
+while getopts "sid" arg 2>/dev/null; do
+    case "${arg}" in
+        s) set_opacity "$2" ;;
+        i) increase ;;
+        d) decrease ;;
+        *) echo "invalid option" ;;
+    esac
+    noOpt=0
+done
+[ "$noOpt" -eq 1 ] && echo "$curr_opacity"

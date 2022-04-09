@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# [ "$(connmanctl technologies | grep Powered | tail -n 1 | cut -d' ' -f5)" = "False" ] &&
+#     echo "⛔" ||
+#     echo "🌏"
+
+[ "$(nmcli radio wifi)" = "disabled" ] && echo "⛔" || echo "🌏"

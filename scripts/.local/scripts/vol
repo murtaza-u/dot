@@ -1,0 +1,28 @@
+#!/bin/sh
+
+status="$(pulseaudio-ctl full-status)"
+vol="$(echo "$status" | cut -d' ' -f1)"
+mute="$(echo "$status" | cut -d' ' -f2)"
+mute_input="$(echo "$status" | cut -d' ' -f3)"
+output=""
+
+if [ "$mute" = "yes" ]; then
+    output="🔇"
+else
+    if [ "$vol" -ge 100 ]; then
+        symbol="🔊"
+    elif [ "$vol" -ge 50 ]; then
+        symbol="🔉"
+    else
+        symbol="🔈"
+    fi
+    output="$symbol$vol"
+fi
+
+if [ "$mute_input" = "yes" ]; then
+    output="${output}  ❌"
+else
+    output="${output}  🎤"
+fi
+
+echo "$output"

@@ -1,0 +1,35 @@
+#!/bin/sh
+
+interactive() {
+    [ -z "$1" ] &&
+        img_path="$HOME/Pictures/screenshots/$(date '+%Y-%m-%d-@%H-%M-%S').png" ||
+        img_path="$1"
+
+    scrot -s "$img_path"
+    decode "$img_path"
+}
+
+decode() {
+    img_path="$1"
+    decoded_string="$(zbarimg -q "$img_path" | sed 's/^QR-Code://g')"
+    if [ "$decoded_string" != "" ]
+    then
+        echo "$decoded_string";
+        echo "$decoded_string" | xclip -selection clipboard
+        notify-send --icon=~/.config/dunst/decode.png "Decoded!" "Decoded message has been copied to clipboard"
+    else
+        echo "Failed to decode"
+        notify-send --icon=~/.config/dunst/decode.png "Failed to decode"
+    fi
+}
+
+noOpt=1
+while getopts "i" arg 2>/dev/null; do
+    case "${arg}" in
+        i) interactive "$2" ;;
+        *) printf "invalid option" ;;
+    esac
+    noOpt=0
+done
+
+[ "$noOpt" -eq 1 ] && decode "$1"

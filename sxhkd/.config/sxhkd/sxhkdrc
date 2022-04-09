@@ -1,0 +1,127 @@
+#### Programs ####
+
+super + Return
+    alacritty
+
+super + shift + Return
+    dmenu_run
+
+super + alt + b
+    brave
+
+super + r
+    $TERMINAL -t newsboat -e newsboat
+
+super + f
+    $TERMINAL -t vifm -e vifm
+
+super + t
+    $TERMINAL -t trt -e trt
+
+super + g
+    pcmanfm
+
+super + n
+    email
+
+super + p
+    pavucontrol
+
+super + v
+    virt-manager
+
+
+### screenshot ###
+
+Print
+    screenshot
+
+
+### Audio ###
+
+{XF86AudioMute, XF86AudioLowerVolume, XF86AudioRaiseVolume}
+    {pulseaudio-ctl mute, pulseaudio-ctl down, pulseaudio-ctl up}; pkill -RTMIN+10 lemonaid
+
+{super + XF86AudioMute, super + XF86AudioLowerVolume, super + XF86AudioRaiseVolume}
+    {pulseaudio-ctl mute-input, pulseaudio-ctl down 15, pulseaudio-ctl up 15}; pkill -RTMIN+10 lemonaid
+
+
+### brightness control ###
+
+{XF86MonBrightnessDown, XF86MonBrightnessUp}
+    {brightness dec, brightness inc}
+
+{super + XF86MonBrightnessDown, super + XF86MonBrightnessUp}
+    {brightness bigDec, brightness bigInc}
+
+
+### touchpad toggle ###
+
+XF86TouchpadToggle
+    xinput disable "ELAN1301:00 04F3:30C6 Touchpad"
+
+super + XF86TouchpadToggle
+    xinput enable "ELAN1301:00 04F3:30C6 Touchpad"
+
+
+### Toggle wifi ###
+
+super + {w, shift + w}
+    {nmcli radio wifi on, nmcli radio wifi off}; pkill -RTMIN+12 lemonaid
+
+
+### Music ###
+
+super + period
+    mpc toggle
+
+super + greater
+    mpc seekthrough +00:00:10
+
+super + less
+    mpc seekthrough -00:00:10
+
+super + Right
+    mpc next; notify-send --icon=~/.config/dunst/music.png "Playing $(mpc current)"
+
+super + Left
+    mpc prev; notify-send --icon=~/.config/dunst/music.png "Playing $(mpc current)"
+
+super + alt + m
+    music
+
+
+#### Scripts ####
+
+super + m; {u,a}
+    {usb -m, amu -m}
+
+super + u; {u,a}
+    {usb -u, amu -u}
+
+super + y; {y, o}
+    {passmenu, otp}
+
+super + z
+    emoji
+
+super + s
+    search
+
+super + BackSpace; {p, r, s, l, b}
+    {systemctl poweroff, systemctl reboot, systemctl suspend, slock, xset dpms force off}
+
+super + shift + b
+    bm -s
+
+super + o; {k, s, i, d}
+    {dkill, sbg, bm -i, decode -i}
+
+super + shift + u
+    updateBarModules
+
+alt + {i, shift + equal, equal, minus, i}
+    {switch -t, opacity -s 0.9, opacity -i, opacity -d, switch -t}
+
+super + b
+    showhidebar

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+create() {
+    exec gh gist create "$@"
+}
+
+if [[ "${#@}" -eq 0 ]]; then
+    create "-"
+    exit
+fi
+
+create "$@"

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+selected="$(ps --user "$(id -u)" -F | \
+            dmenu -i -l 30 -p "Search for process to kill:" | \
+            awk '{ print $2" "$11 }')"
+
+[ -z "$selected" ] && exit
+answer="$(printf "Yes\nNo" | dmenu -i -p "Kill $selected?")" || exit
+
+[ "$answer" = "Yes" ] && kill -9 "${selected%% *}"
