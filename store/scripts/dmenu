@@ -1,0 +1,9 @@
+#!/bin/sh
+
+exec /usr/bin/dmenu \
+    -fn "Roboto:size=13:style=medium:antialias=true:autohint=true" \
+    -nb "#E9E9ED" \
+    -nf "#000000" \
+    -sb "#000000" \
+    -sf "#E9E9ED" \
+    "$@"

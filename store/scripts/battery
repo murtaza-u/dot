@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+capacity="$(</sys/class/power_supply/BAT0/capacity)"
+
+if [[ -t 0 ]]; then
+    echo "🔋$capacity%"
+    exit
+fi
+
+exec notify-send -i ~/.config/dunst/battery.png "$capacity%"

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec docker run -it --name "$1" --hostname "$1" --rm "$1"

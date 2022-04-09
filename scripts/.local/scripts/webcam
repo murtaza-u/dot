@@ -1,4 +1,0 @@
-#!/bin/sh
-
-#v4l2-ctl --set-fmt-video=width=640,height=480
-exec mpv --title="" av://v4l2:/dev/video0 --profile=low-latency --untimed

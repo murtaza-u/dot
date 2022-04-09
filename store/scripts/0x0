@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+size() {
+    bytes="$(stat -c %s "$1")"
+    bc -l <<< "$bytes * 0.0000009537"
+}
+
+concat() {
+    tmp="/tmp/$(date -u +%Y%m%d%H%M%S)"
+    cat "$@" > "$tmp"
+    echo "$tmp"
+}
+
+retention() {
+    size="$(size "$1")"
+    max_size=512
+    max_age=365
+    min_age=30
+    bc -l <<< "$min_age + (- $max_age + $min_age) * (($size / $max_size - 1) ^ 3)"
+}
+
+main() {
+    file="$(concat "$@")"
+    ret="$(retention "$file")"
+
+    if link="$(curl -s -F "file=@$file" https://0x0.st)"; then
+        xclip -sel c <<< "$link"
+
+        ret="$(retention "$file")"
+        printf "Link: %s\nFile will be deleted in %.0f days\n" "$link" "$ret"
+    else
+        echo "An error occured. Check your internet connection"
+    fi
+
+    rm "$file"
+}
+
+if [[ "${#@}" -eq 0 ]]; then
+    echo "No file provided"
+    exit
+fi
+
+main "$@"

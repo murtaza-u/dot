@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+for (( i=30; i<=37; i++ )); do
+    echo -e "\e[${i}m\\e\[${i}m"
+done
+
+for (( i=30; i<=37; i++ )); do
+    echo -e "\e[1;${i}m\\e\[1;${i}m"
+done

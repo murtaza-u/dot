@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# exec youtube-dl -o "$HOME/music/%(title)s.%(ext).s" -x -f bestaudio/best "$@"
+exec yt-dlp -o "$HOME/Music/%(title)s.%(ext)s" -x -f bestaudio/best "$@"

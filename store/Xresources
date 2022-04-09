@@ -1,0 +1,52 @@
+*.alpha: 1.0
+*.font: Roboto Medium:size=12
+Xft.autohint: 1
+Xft.antialias: 1
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.rgba: rgba
+Xft.lcdfilter: lcddefault
+
+!*color0: #32302f
+!*color1: #fb4934
+!*color2: #b8bb26
+!*color3: #fabd2f
+!*color4: #83a598
+!*color5: #d3869b
+!*color6: #8ec07c
+!*color7: #ebdbb2
+!
+!*.color8: #282828
+!*.color9: #cc241d
+!*.color10: #98971a
+!*.color11: #d79921
+!*.color12: #458588
+!*.color13: #b16286
+!*.color14: #689d6a
+!*.color15: #a89984
+!
+!*.foreground: #fbf1c7
+!*.background: #1d2021
+
+! one half light
+*.foreground:  #383a42
+*.background:  #fafafa
+*.cursorColor: #bfceff
+
+*.color0:      #383a42
+*.color8:      #4f525e
+*.color1:      #e45649
+*.color9:      #e06c75
+*.color2:      #50a14f
+*.color10:     #98c379
+*.color3:      #c18401
+*.color11:     #e5c07b
+*.color4:      #0184bc
+*.color12:     #61afef
+*.color5:      #a626a4
+*.color13:     #c678dd
+*.color6:      #0997b3
+*.color14:     #56b6c2
+*.color7:      #fafafa
+*.color15:     #ffffff
+*.colorBD:     #abb2bf

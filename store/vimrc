@@ -1,0 +1,134 @@
+filetype plugin indent on
+
+set nocompatible
+
+" faster scrolling
+set ttyfast
+
+" automatically write files when multiple files are changed
+set autowrite
+
+" no line wrapping
+set nowrap
+
+" no automatic folding
+set foldmethod=manual
+set nofoldenable
+
+" sensible split positions
+set splitbelow splitright
+
+" maximum number of items to show in the popup menu
+set pumheight=10
+
+" height of command-line
+set cmdheight=1
+
+set smarttab
+
+" replace tabs with spaces
+set expandtab
+
+" 4 char tab
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+
+" copy indent from current line when starting a new line
+set autoindent
+
+" searching
+set ignorecase smartcase
+set incsearch hlsearch
+
+" avoid most of the 'Hit Enter ...' messages
+set shortmess=aoOtTI
+
+" no backup, no swaps = cleaner
+set nobackup
+set nowritebackup
+set noswapfile
+
+set laststatus=0
+
+" stop complaints about switching buffer with changes
+set hidden
+
+" center the cursor while scrolling
+set scrolloff=8
+
+set updatetime=100
+set timeoutlen=500
+
+" no cluttering
+set signcolumn=no
+
+" faster escapes
+set ttimeout
+set ttimeoutlen=0
+
+if v:version >= 800
+    " stop vim from silently messing with files that it shouldn't
+    set nofixendofline
+
+    " better ascii friendly listchars
+    set listchars=space:*,trail:*,nbsp:*,extends:>,precedes:<,tab:\|>
+
+    " disable automatic folding
+    set foldmethod=manual
+    set nofoldenable
+endif
+
+" prevents truncated yanks, deletes, etc.
+set viminfo='20,<1000,s1000
+
+" command history
+set history=100
+
+" ruler format
+set ruf=%30(%=%#LineNr#%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
+
+if has("syntax")
+    syntax on
+endif
+
+" start at last place you were editing
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" keep Y behaviour consistent with C and D
+nnoremap Y y$
+
+" moving text
+vnoremap <silent> J :m '>+1<CR>gv=gv
+vnoremap <silent> K :m '<-2<CR>gv=gv
+
+" Better tabbing
+vnoremap < <gv
+vnoremap > >gv
+
+" buffer switching
+nnoremap <silent> <space>n :bnext<CR>
+nnoremap <silent> <space>p :bprev<CR>
+
+" keep jumping
+nnoremap <silent> { :keepjumps normal! {<CR>
+nnoremap <silent> } :keepjumps normal! }<CR>
+
+" undo break point
+inoremap <silent> , ,<C-g>U
+inoremap <silent> . .<C-g>U
+inoremap <silent> ! !<C-g>U
+inoremap <silent> ? ?<C-g>U
+
+" quickfix list navigation
+nnoremap <silent> <C-j> :cnext<CR>
+nnoremap <silent> <C-k> :cprev<CR>
+
+" keeping it centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" disable search highlighting with <C-L>
+nnoremap <silent> <C-L> :nohl<CR><C-L>
+
+" toggle line numbers
+nnoremap <silent> <space>d :set nu! rnu!<CR>

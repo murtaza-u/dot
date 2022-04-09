@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+urlencode() {
+    local string="$1"
+    local strlen=${#string}
+    local encoded=""
+    local pos c o
+
+    for ((pos = 0; pos < strlen; pos++)); do
+        c=${string:$pos:1}
+        case "$c" in
+            [-_.~a-zA-Z0-9]) o="${c}" ;;
+            *) printf -v o '%%%02x' "'$c'" ;;
+        esac
+        encoded+="${o}"
+    done
+    echo "$encoded"
+}
+
+w3m() {
+    local query="$1"
+    exec w3m "https://lite.duckduckgo.com/lite?q=$query"
+}
+
+lynx() {
+    local query="$1"
+    local lynxpath=/usr/bin/lynx
+    local cfg="$HOME/.config/lynx/lynx.cfg"
+    local lss="$HOME/.config/lynx/lynx.lss"
+    local useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.79 Safari/537.1 Lynx"
+
+    if [[ ! -x "$lynxpath" ]]; then
+        echo "lynx is likely not installed"
+        exit 1
+    fi
+
+    [[ -e "$cfg" ]] && export LYNX_CFG="$cfg"
+    [[ -e "$lss" ]] && export LYNX_LSS="$lss"
+
+    exec "$lynxpath" \
+        --useragent="$useragent" \
+        "https://lite.duckduckgo.com/lite?q=$query"
+}
+
+[[ -z "$*"  ]] && exit
+query="$(urlencode "$*")"
+w3m "$query"

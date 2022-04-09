@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ${1:myapp}
+  namespace: ${2:default}
+spec:
+  selector:
+    matchLabels:
+      app: ${1:myapp} # has to match .spec.template.metadata.labels
+  serviceName: ${1:myapp}
+  replicas: ${3:3} # by default is 1
+  template:
+    metadata:
+      labels:
+        app: ${1:myapp} # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: ${1:myapp}
+        image: ${4:${1:myapp}-slim:1.16.1}
+        ports:
+        - containerPort: ${5:80}
+          name: ${1:myapp}
+        volumeMounts:
+        - name: ${6:www}
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: ${6:www}
+    spec:
+      storageClassName: ${7:my-storage-class}
+      accessModes:
+      - ${8|ReadWriteOnce,ReadWriteMany,ReadOnlyMany|}
+      resources:
+        requests:
+          storage: ${9:1Gi}
+---

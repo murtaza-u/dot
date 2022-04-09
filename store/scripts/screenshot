@@ -1,0 +1,15 @@
+#!/bin/sh
+
+path="/home/murtaza/Pictures/screenshots/%Y-%m-%d-@%H-%M-%S.jpg"
+
+notify() {
+    notify-send --icon=~/.config/dunst/screenshot.jpg "Screenshot taken"
+}
+
+choice="$(printf 'Fullscreen\nFocused window\nInteractive' | dmenu -i -l 20 -p 'screenshot ')"
+
+case "$choice" in
+    'Fullscreen') scrot -d 0.6 "$path" && notify ;;
+    'Focused window') scrot -u "$path" && notify ;;
+    'Interactive') scrot -s "$path" && notify ;;
+esac

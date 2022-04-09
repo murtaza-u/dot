@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+snippets="$HOME/.local/share/snippets"
+
+snip() {
+    f="$snippets/$1"
+    shift
+
+    if [[ ! -f "$f" ]]; then
+        echo "Does not exist"
+        return 1
+    fi
+
+    local buf
+    buf=$(<"$f")
+
+    local -i n=1
+
+    for arg in "$@"; do
+        buf=${buf//\$\{$n\}/$arg}
+        ((n++))
+    done
+
+    echo "$buf"
+}
+
+comp() {
+    [[ "$1" != "$3" ]] && return
+
+    readarray -d '' files < <(find "$snippets" -type f -print0)
+    for f in "${files[@]}"; do
+        f="${f##*/}"
+        [[ "${f:0:${#2}}" == "${2,,}" ]] && echo "$f"
+    done
+}
+
+if [[ -n "$COMP_LINE" ]]; then
+    comp "$@"
+    exit 0
+fi
+
+if [[ -n "$*" ]]; then
+    snip "$@"
+    exit
+fi
+
+while IFS=$'\n' read -r line; do
+    declare -a args
+    while IFS=' ' read -r arg; do
+        args+=("$arg")
+    done <<< "$line"
+
+    snip "${args[@]}"
+done

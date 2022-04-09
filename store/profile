@@ -1,0 +1,58 @@
+#!/bin/bash
+
+if [[ -n "$BASH_VERSION" && -f "$HOME/.bashrc" ]]; then
+    # source .bashrc if it exists
+    . "$HOME/.bashrc"
+fi
+
+_have() { type "$1" &>/dev/null; }
+
+# ----------------------------- exports ---------------------------------------
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_RUNTIME_DIR="$HOME/.local/share/runtime"
+
+export READER=zathura
+export BROWSER=chromium
+export TERMINAL=xfce4-terminal
+export COLORTERM=truecolor
+export CGO_ENABLED=0
+export REPOS="$HOME/Repos"
+export GITUSER="murtaza-u"
+
+#export LC_ALL='en_US.UTF-8'
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+export FZF_DEFAULT_OPTS='--layout=reverse --height 50%'
+export QT_QPA_PLATFORMTHEME='qt5ct'
+export MOZ_USE_XINPUT2=1  # Mozilla smooth scrolling/touchpads.
+export _JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# clean up
+export LESSHISTFILE="-"
+export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
+export GOPATH="$XDG_DATA_HOME"/go
+export GOBIN="$GOPATH"/bin
+export prefix="$XDG_DATA_HOME"/npm
+export cache="$XDG_CACHE_HOME"/npm
+export tmp="$XDG_RUNTIME_DIR"/npm
+export NPM_CONFIG_PREFIX=$HOME/.local/share/npm-global
+# export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+# export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/password-store
+# export PASSWORD_STORE_EXTENSIONS_DIR=/usr/local/lib/password-store/extensions
+# export PASSWORD_STORE_ENABLE_EXTENSIONS=true
+
+# export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch"
+# export PYLINTHOME="$XDG_CACHE_HOME"/pylint
+# export CARGO_HOME="$XDG_DATA_HOME"/cargo
+# export NUGET_PACKAGES="$XDG_CACHE_HOME/"NuGetPackages
+# export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+# export ANDROID_HOME=$HOME/Android/SDK
+# export ANDROID_SDK_ROOT=$HOME/Android/SDK
+# export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+# export MPD_PORT="7000"
+# export XDEB_PKGROOT="$HOME"/.local/builds/xdeb

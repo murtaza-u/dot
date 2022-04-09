@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec printf "📅 %s\n" "$(date '+%b %d (%a) %R')"

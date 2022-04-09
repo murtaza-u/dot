@@ -1,3 +1,0 @@
-#!/bin/sh
-
-dmenu -i -l 30 < "$HOME"/.local/share/emojis | awk '{ print $1 }' | xclip -selection clipboard

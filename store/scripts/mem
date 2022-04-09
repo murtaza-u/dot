@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+kB=1024
+used=0
+total=0
+
+# MemUsed = Memtotal + Shmem - MemFree - Buffers - Cached - SReclaimable
+while IFS=":" read -r a b; do
+    case "$a" in
+        "MemTotal") ((total+=${b/kB})); ((used+=total)) ;;
+        "Shmem") ((used+=${b/kB})) ;;
+        "MemFree" | "Buffers" | "Cached" | "SReclaimable") ((used-=${b/kB})) ;;
+    esac
+done < /proc/meminfo
+
+used="$((used / kB))"
+total="$((total / kB))"
+mem="${used}MiB / ${total}MiB"
+
+if [ -t 0 ]; then
+    echo "$mem"
+    exit
+fi
+
+exec notify-send -i ~/.config/dunst/memory.png "$mem"

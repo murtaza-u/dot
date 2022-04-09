@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ${1:pvapp}
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: ${2:Filesystem|Block}
+  accessModes:
+    - ReadWriteOnce     # RWO
+    - ReadOnlyMany      # ROX
+    - ReadWriteMany     # RWX
+    - ReadWriteOncePod  # RWOP
+  persistentVolumeReclaimPolicy: ${3:Recycle|Retain|Delete}
+  storageClassName: default
+  nfs:
+    server: 172.17.0.2
+    path: /tmp
+  # hostPath:
+  #   path: /path/to/directory

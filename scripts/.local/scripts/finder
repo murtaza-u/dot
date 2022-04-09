@@ -1,4 +1,0 @@
-#!/bin/sh
-
-chosen="$(find . -type f | fzf -i --border sharp --preview 'less {}')"
-[ -z "$chosen" ] || o "$chosen"

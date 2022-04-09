@@ -1,0 +1,171 @@
+# Any items in the `env` entry below will be added as
+# environment variables. Some entries may override variables
+# set by alacritty itself.
+env:
+  # TERM variable
+  #
+  # This value is used to set the `$TERM` environment variable for
+  # each instance of Alacritty. If it is not present, alacritty will
+  # check the local terminfo database and use `alacritty` if it is
+  # available, otherwise `xterm-256color` is used.
+  TERM: xterm-256color
+
+window:
+  # Window dimensions (changes require restart)
+  #
+  # Number of lines/columns (not pixels) in the terminal. Both lines and columns
+  # must be non-zero for this to take effect. The number of columns must be at
+  # least `2`, while using a value of `0` for columns and lines will fall back
+  # to the window manager's recommended size
+  #dimensions:
+  #  columns: 0
+  #  lines: 0
+
+  # Window position (changes require restart)
+  #
+  # Specified in number of pixels.
+  # If the position is not set, the window manager will handle the placement.
+  #position:
+  #  x: 0
+  #  y: 0
+
+  # Window padding (changes require restart)
+  #
+  # Blank space added around the window in pixels. This padding is scaled
+  # by DPI and the specified value is always added at both opposing sides.
+  # padding:
+  #   x: 0
+  #   y: 0
+
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: true
+
+  # Background opacity
+  #
+  # Window opacity as a floating point number from `0.0` to `1.0`.
+  # The value `0.0` is completely transparent and `1.0` is opaque.
+  opacity: 1.0
+
+  # Window title
+  #title: Alacritty
+
+  # Allow terminal applications to change Alacritty's window title.
+  dynamic_title: true
+
+  # Window class (Linux/BSD only):
+  #class:
+    # Application instance name
+    #instance: Alacritty
+    # General application class
+    #general: Alacritty
+
+  # Decorations theme variant (Linux/BSD only)
+  #
+  # Override the variant of the GTK theme/Wayland client side decorations.
+  # Commonly supported values are `dark` and `light`. Set this to `None` to use
+  # the default theme variant.
+  #decorations_theme_variant: None
+
+scrolling:
+  # Maximum number of lines in the scrollback buffer.
+  # Specifying '0' will disable scrolling.
+  history: 100000
+
+  # Scrolling distance multiplier.
+  multiplier: 3
+
+# Font configuration
+font:
+  normal:
+    family: Iosevka
+    style: Medium
+  bold:
+    family: Iosevka
+    style: Bold
+  italic:
+    family: Iosevka
+    style: Italic
+  bold_italic:
+    family: Iosevka
+    style: Bold Italic
+  size: 12.5
+
+  # Offset is the extra space around each character. `offset.y` can be thought
+  # of as modifying the line spacing, and `offset.x` as modifying the letter
+  # spacing.
+  #offset:
+  #  x: 0
+  #  y: 0
+
+  # Glyph offset determines the locations of the glyphs within their cells with
+  # the default being at the bottom. Increasing `x` moves the glyph to the
+  # right, increasing `y` moves the glyph upward.
+  #glyph_offset:
+  #  x: 0
+  #  y: 0
+
+  # Use built-in font for box drawing characters.
+  #
+  # If `true`, Alacritty will use a custom built-in font for box drawing
+  # characters (Unicode points 2500 - 259f).
+  #
+  #builtin_box_drawing: true
+
+# If `true`, bold text is drawn using the bright color variants.
+#draw_bold_text_with_bright_colors: false
+
+colors:
+  # atom one light
+  primary:
+    background: '0xf8f8f8'
+    foreground: '0x2a2b33'
+
+  normal:
+    black:   '0x000000'
+    red:     '0xde3d35'
+    green:   '0x3e953a'
+    yellow:  '0xd2b67b'
+    blue:    '0x2f5af3'
+    magenta: '0xa00095'
+    cyan:    '0x3e953a'
+    white:   '0xbbbbbb'
+
+  bright:
+    black:   '0x000000'
+    red:     '0xde3d35'
+    green:   '0x3e953a'
+    yellow:  '0xd2b67b'
+    blue:    '0x2f5af3'
+    magenta: '0xa00095'
+    cyan:    '0x3e953a'
+    white:   '0xffffff'
+
+selection:
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  save_to_clipboard: true
+
+cursor:
+  style:
+    # Values for `shape`:
+    #   - ▇ Block
+    #   - _ Underline
+    #   - | Beam
+    shape: Block
+
+    # Cursor blinking state
+    blinking: Off
+
+  # If this is `true`, the cursor will be rendered as a hollow box when the
+  # window is not focused.
+  unfocused_hollow: true
+
+  # Thickness of the cursor relative to the cell width as floating point number
+  # from `0.0` to `1.0`.
+  thickness: 0.15
+
+# Live config reload (changes require restart)
+live_config_reload: true
+
+mouse:
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  hide_when_typing: true

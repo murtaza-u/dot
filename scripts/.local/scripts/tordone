@@ -1,4 +1,0 @@
-#!/bin/sh
-
-exec notify-send "🦹Transmission Daemon" "$TR_TORRENT_NAME has completely downloaded"
-# exec notify-send "🦹 A torrent has completely downloaded"

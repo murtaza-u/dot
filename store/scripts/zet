@@ -1,0 +1,181 @@
+#!/usr/bin/env bash
+
+zet="${ZET:-$HOME/Repos/github.com/murtaza-u/zet}"
+args=(search edit new tweet rss hugo)
+
+_exists() {
+    id="$1"
+    if [[ -z "$id" ]]; then
+        echo "error: missing identifier"
+        return 1
+    fi
+
+    path="$zet/$id/README.md"
+    if [[ ! -r "$path" ]]; then
+        echo "error: $id: zettelkasten not found"
+        return 1
+    fi
+}
+
+_list() {
+    # might not work with BSD `find`
+    find "$zet" -type d -regextype posix-egrep -regex "$zet/[0-9]{14}" -print0
+}
+
+comp() {
+    if [[ "$3" == "edit" || "$3" == "tweet" || "$3" == "rss" ]]; then
+        readarray -d '' zets < <(_list)
+        for z in "${zets[@]}"; do
+            z="${z##*/}"
+            [[ "${z:0:${#2}}" == "${2,,}" ]] && echo "$z"
+        done
+
+        return
+    fi
+
+    [[ "$1" != "$3" ]] && return
+
+    for arg in "${args[@]}"; do
+        [[ "${arg:0:${#2}}" == "${2,,}" ]] && echo "$arg"
+    done
+}
+
+search() {
+    if [[ "${#@}" -eq 0 ]]; then
+        echo "error: empty query"
+        exit 1
+    fi
+
+    for word in "$@"; do
+        query="$query.*$word.*"
+    done
+
+    while IFS=$'\n' read -r line; do
+        head="${line##*# }"
+        file="${line%%:*}"
+
+        [[ "$file" =~ [0-9]{14} ]]
+        id="${BASH_REMATCH[0]}"
+
+        echo "$head ($id)"
+    done < <(grep -m 1 -iHE "^#\s$query\$" "$zet"/**/README.md)
+}
+
+edit() {
+    id="$1"
+    if ! _exists "$id"; then
+        exit 1
+    fi
+
+    path="$zet/$id/README.md"
+    exec "$EDITOR" "$path"
+}
+
+new() {
+    id="$(isosec)"
+    dir="/tmp/$id"
+    file="$dir/README.md"
+
+    mkdir "$dir"
+    $EDITOR "$file"
+
+    if [[ ! -r "$file" ]]; then
+        rmdir "$dir"
+        return
+    fi
+
+    mv "$dir" "$zet"
+}
+
+tweet() {
+    id="$1"
+    if ! _exists "$id"; then
+        exit 1
+    fi
+
+    url="https://github.com/murtaza-u/zet/tree/main/$id"
+    path="$zet/$id/README.md"
+
+    # extracting heading
+    IFS= read -r head < "$path"
+    head="${head##*# }" # trim leading '#'
+
+    # extracting hashtags
+    tags="$(tail -1 "$path")"
+    tags="${tags#"${tags%%[![:space:]]*}"}" # trim leading whitespace
+
+    printf "📜 %s\n\n%s\n\n%s\n" "$head" "$url" "$tags"
+}
+
+hugo() {
+    id="$1"
+    if ! _exists "$id"; then
+        exit 1
+    fi
+
+    path="$zet/$id/README.md"
+
+    # extracting title
+    IFS= read -r title < "$path"
+    title="${title##*# }" # trim leading '#'
+
+    # extracting hashtags
+    tags="$(tail -1 "$path")"
+    tags="${tags#"${tags%%[![:space:]]*}"}" # trim leading whitespace
+
+    # converting tags into an array of tags
+    taglist=""
+    read -a tags <<< "$tags"
+    for tag in "${tags[@]}"; do
+        if [[ -z "$taglist" ]]; then
+            taglist="[${tag##*#}"
+            continue
+        fi
+
+        taglist="$taglist, ${tag##*#}"
+    done
+    taglist="$taglist]"
+
+    # trimming first and last line from file
+    content="$(sed -e '$d' -e '1d' "$path")"
+
+    # 2022-07-16 07:54:33
+    date="${id:0:4}-${id:4:2}-${id:6:2} ${id:8:2}:${id:10:2}:${id:12:2}"
+
+    printf -- "---\ntitle: %s\ndate: %s\ntags: %s\n---\n%s" \
+        "$title" "$date" "$taglist" "$content"
+}
+
+# requires `rss`
+rss() {
+    id="$1"
+    if ! _exists "$id"; then
+        exit 1
+    fi
+
+    url="https://github.com/murtaza-u/zet/tree/main/$id"
+    path="$zet/$id/README.md"
+
+    IFS= read -r head < "$path"
+    head="${head##*# }" # trim leading '#'
+
+    exec gorss --file "$path" --isosec "$id" --link "$url" --title "$head"
+}
+
+if [[ -n "$COMP_LINE" ]]; then
+    comp "$@"
+    exit 0
+fi
+
+arg="$1"
+shift
+
+case "$arg" in
+    search) search "$@" ;;
+    edit)   edit "$1" ;;
+    new)    new ;;
+    tweet)  tweet "$1" ;;
+    rss)    rss "$1" ;;
+    hugo)   hugo "$1" ;;
+    *)      echo "invalid argument" && exit 1 ;;
+esac

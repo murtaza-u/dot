@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${1:myjob}
+  namespace: ${2:default}
+spec:
+  selector:
+    app: ${1:myjob}
+  type: ${3|ClusterIP,NodePort,LoadBalancer|ExternalName|}
+  ports:
+  - name: ${1:myjob}
+    protocol: ${4|TCP,UDP|}
+    port: ${5:80}
+    targetPort: ${6:5000}
+    nodePort: ${7:30001}
+---
