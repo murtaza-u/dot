@@ -1,6 +1,8 @@
 { modulesPath, lib, config, pkgs, ... }: {
   imports = [
     "${modulesPath}/virtualisation/amazon-image.nix"
+
+    ./mattermost.nix
   ];
 
   # enable flakes and nix command
