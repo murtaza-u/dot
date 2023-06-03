@@ -3,6 +3,7 @@
     "${modulesPath}/virtualisation/amazon-image.nix"
 
     ./mattermost.nix
+    ./nginx.nix
   ];
 
   # enable flakes and nix command
@@ -29,7 +30,7 @@
     ];
   };
 
-  environment.defaultPackages = with pkgs; [ nvi ];
+  environment.defaultPackages = with pkgs; [ nvi git ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

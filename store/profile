@@ -28,6 +28,7 @@ export QT_QPA_PLATFORMTHEME='qt5ct'
 export MOZ_USE_XINPUT2=1  # Mozilla smooth scrolling/touchpads.
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
+export GPG_TTY=$(tty)
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
