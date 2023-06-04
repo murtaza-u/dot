@@ -175,7 +175,13 @@
     };
   };
 
-  # xsession.enable = true;
+  xsession = {
+    enable = true;
+    initExtra = ''
+      sxhkd &
+      pulseaudio --start
+    '';
+  };
 
   services.picom = {
     enable = false;
@@ -276,6 +282,7 @@
     neovim
     jq
     iosevka
+    sxhkd
     gcolor3
     lm_sensors
   ];

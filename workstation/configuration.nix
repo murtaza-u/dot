@@ -48,7 +48,7 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_IN.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
   console = {
     earlySetup = true;
     packages = with pkgs; [ terminus_font ];
@@ -62,11 +62,11 @@
     videoDrivers = [ "amdgpu" ];
 
     # windowManager.bspwm.enable = true;
-    desktopManager.xfce.enable = true;
+    # displayManager.startx.enable = true;
 
-    displayManager.startx.enable = true;
-    displayManager.lightdm.enable = false;
-    # displayManager.defaultSession = "xfce";
+    desktopManager.xfce.enable = true;
+    displayManager.lightdm.enable = true;
+    displayManager.defaultSession = "xfce";
 
     # Configure keymap in X11
     layout = "us";
@@ -91,10 +91,10 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
+    enable = false;
+    powerOnBoot = false;
   };
-  services.blueman.enable = true;
+  services.blueman.enable = false;
 
   # Firmware
   hardware.firmware = with pkgs; [ firmwareLinuxNonfree ];
