@@ -17,11 +17,11 @@
     in
     {
       formatter.${system} = pkgs.nixpkgs-fmt;
-      nixosConfigurations.ec2 = lib.nixosSystem {
+      nixosConfigurations.shiganshina = lib.nixosSystem {
         inherit system;
         modules = [
           { nix.registry.nixpkgs.flake = nixpkgs; }
-          ./ec2/configuration.nix
+          ./shiganshina/configuration.nix
         ];
       };
       nixosConfigurations.workstation = lib.nixosSystem {
@@ -29,8 +29,16 @@
         modules = [
           { nix.registry.nixpkgs.flake = nixpkgs; }
           ./workstation/configuration.nix
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit unstable-pkgs; };
+            home-manager.users.murtaza = import ./workstation/home.nix;
+          }
         ];
       };
+      # standalone home-manager for WSL2
       homeManagerConfigurations = {
         murtaza = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
@@ -38,9 +46,7 @@
             { nix.registry.nixpkgs.flake = nixpkgs; }
             ./wsl/home.nix
           ];
-          extraSpecialArgs = {
-            inherit unstable-pkgs;
-          };
+          extraSpecialArgs = { inherit unstable-pkgs; };
         };
       };
     };

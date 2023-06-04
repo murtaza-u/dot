@@ -17,7 +17,7 @@
     options = "--delete-older-than 5d";
   };
 
-  networking.hostName = "ec2";
+  networking.hostName = "shiganshina";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.murtaza = {

@@ -33,7 +33,7 @@
   };
 
   networking = {
-    hostName = "machine";
+    hostName = "workstation";
     networkmanager = {
       enable = true;
       insertNameservers = [ "1.1.1.1" "8.8.8.8" ];

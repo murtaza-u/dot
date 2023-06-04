@@ -42,6 +42,22 @@
         ];
       };
     };
+    zathura = {
+      enable = true;
+      mappings = {
+        R = "rotate";
+        i = "recolor";
+      };
+      options = {
+        statusbar-h-padding = 0;
+        statusbar-v-padding = 0;
+        page-padding = 1;
+        selection-clipboard = "clipboard";
+        recolor-lightcolor = "#161515";
+        recolor-keephue = true;
+        default-bg = "#ffffff";
+      };
+    };
     git = {
       enable = true;
       userName = "Murtaza Udaipurwala";
@@ -97,6 +113,32 @@
         color article           default default
       '';
     };
+    rofi = {
+      enable = true;
+      theme = ../store/rofi/theme.rasi;
+      cycle = true;
+      font = "Iosevka Medium 14";
+      plugins = with pkgs; [ rofi-emoji ];
+      extraConfig = {
+        show-icons = true;
+        icon-theme = "breeze_icons";
+        modi = "window,run,drun,emoji";
+        drun-display-format = "{icon} {name}";
+        display-window = "Windows: ";
+        display-drun = "Applications: ";
+        display-run = "Run: ";
+        display-emoji = "Emoji: ";
+      };
+    };
+    chromium = {
+      enable = true;
+      extensions = [
+        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+        { id = "pkehgijcmpdhfbdbbnkijodmdjhbjlgp"; } # privacy badger
+        { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
+        { id = "bhchdcejhohfmigjafbampogmaanbfkg"; } # user-agent spoofer
+      ];
+    };
     gpg.enable = true;
     direnv = {
       enable = true;
@@ -104,9 +146,90 @@
     };
   };
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Breeze";
+      package = pkgs.breeze-gtk;
+    };
+    font = {
+      name = "Roboto Medium";
+      size = 11;
+      package = pkgs.roboto;
+    };
+    iconTheme = {
+      name = "breeze";
+      package = pkgs.breeze-icons;
+    };
+    cursorTheme = {
+      name = "breeze_cursors";
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+    style = {
+      name = "Breeze";
+      package = "breeze-qt";
+    };
+  };
+
+  # xsession.enable = true;
+
+  services.picom = {
+    enable = false;
+    activeOpacity = 1.0;
+    fade = true;
+    fadeDelta = 5;
+    fadeExclude = [ "class_g = 'Rofi'" ];
+    fadeSteps = [ 0.03 0.03 ];
+    shadow = true;
+  };
+
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "tty";
+    pinentryFlavor = "gtk2";
+  };
+
+  services.dunst = {
+    enable = false;
+    iconTheme = {
+      name = "Breeze";
+      package = pkgs.breeze-icons;
+    };
+    settings = rec {
+      global = {
+        width = 300;
+        height = 300;
+        origin = "top-right";
+        offset = "4x4";
+        transparency = 10;
+        separator_height = 2;
+        padding = 10;
+        gap_size = 10;
+        horizontal_padding = 10;
+        text_icon_padding = 3;
+        frame_width = 2;
+        frame_color = "#eeeeee";
+        font = "Roboto Medium 14";
+        icon_position = "left";
+        corner_radius = 6;
+        force_xwayland = false;
+      };
+      urgency_normal = {
+        background = "#eeeeee";
+        foreground = "#000000";
+        timeout = 5;
+      };
+      urgency_low = urgency_normal;
+      urgency_critical = {
+        background = "#eeeeee";
+        foreground = "#000000";
+        frame_color = "#ff0000";
+        timeout = 5;
+      };
+    };
   };
 
   home.file = {
@@ -115,6 +238,8 @@
     ".tmux.conf".source = ../store/tmux.conf;
     ".w3m".source = ../store/w3m;
     ".vimrc".source = ../store/vimrc;
+    ".xinitrc".source = ../store/xinitrc;
+    ".Xresources".source = ../store/Xresources;
   };
 
   xdg.configFile = {
@@ -125,6 +250,9 @@
     emacs.source = ../store/emacs;
     vifm.source = ../store/vifm;
     dircolors.source = ../store/dircolors;
+    # alacritty.source = ../store/alacritty;
+    # bspwm.source = ../store/bspwm;
+    sxhkd.source = ../store/sxhkd;
   };
 
   xdg.dataFile = {
@@ -147,6 +275,9 @@
     gh
     neovim
     jq
+    iosevka
+    gcolor3
+    lm_sensors
   ];
 
   # This value determines the Home Manager release that your
