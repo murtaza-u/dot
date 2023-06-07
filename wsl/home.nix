@@ -1,4 +1,4 @@
-{ config, pkgs, unstable-pkgs, ... }:
+{ config, pkgs, zpkgs, ... }:
 
 {
   programs = {
@@ -6,7 +6,6 @@
     home-manager.enable = true;
     helix = {
       enable = true;
-      package = unstable-pkgs.helix;
       settings = {
         theme = "onelight";
         editor = {
@@ -136,17 +135,19 @@
 
   home.username = "murtaza";
   home.homeDirectory = "/home/murtaza";
-  home.packages = with pkgs; [
-    file
-    zip
-    unzip
-    tree
-    tmux
-    w3m
-    vifm
-    gh
-    neovim
-    jq
+  home.packages = [
+    pkgs.file
+    pkgs.zip
+    pkgs.unzip
+    pkgs.tree
+    pkgs.tmux
+    pkgs.w3m
+    pkgs.vifm
+    pkgs.gh
+    pkgs.neovim
+    pkgs.ripgrep
+    pkgs.jq
+    zpkgs.default
   ];
 
   # This value determines the Home Manager release that your
