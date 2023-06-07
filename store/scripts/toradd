@@ -1,9 +1,0 @@
-#!/bin/sh
-
-pidof transmission-daemon >/dev/null ||
-    (notify-send "🦹 Starting Transmission Daemon" &&
-    (transmission-daemon &) &&
-    sleep 3)
-
-notify-send "🔽 Adding Torrent"
-exec transmission-remote -a "$@"

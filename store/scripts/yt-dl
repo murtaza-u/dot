@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# exec youtube-dl -o "$HOME/vids/%(title)s.%(ext).s" -f "bestvideo[ext=mp4][height<=?1080]+bestaudio[ext=m4a]" "$*"
-exec yt-dlp -o "$HOME/Videos/%(title)s.%(ext)s" -f "bestvideo[ext=mp4][height<=?1080]+bestaudio[ext=m4a]" "$*"

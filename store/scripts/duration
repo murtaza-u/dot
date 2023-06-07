@@ -1,4 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+deps=(ffmpeg bc jq)
+for dep in "${deps[@]}"; do
+    if [[ -z "$(command -v "$dep")" ]]; then
+        echo "$dep is not installed"
+        exit 1
+    fi
+done
 
 get_dur() {
     file="$1"

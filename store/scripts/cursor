@@ -13,6 +13,6 @@ showcursor() {
 }
 
 case "$1" in
-    "on") showcursor ;;
-    "off") hidecursor ;;
+    "show") showcursor ;;
+    "hide") hidecursor ;;
 esac

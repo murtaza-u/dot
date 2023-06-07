@@ -1,9 +1,0 @@
-#!/bin/sh
-
-tempt="$(sensors | awk '/^Tctl/ { print $2 }')"
-if [ -t 0 ]; then
-    echo "🔥 $tempt"
-    exit
-fi
-
-exec notify-send -i ~/.config/dunst/temperature.png "$tempt"

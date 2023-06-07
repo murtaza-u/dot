@@ -13,15 +13,9 @@ is_disabled() {
     echo true
 }
 
-notify() {
-    notify-send -i "$2" "$1"
-}
-
 if [[ "$(is_disabled)" == "true" ]]; then
     xinput enable "$device"
-    notify "Touchpad Enabled" "$HOME/.config/dunst/touchpad_enabled.png"
     exit
 fi
 
 xinput disable "$device"
-notify "Touchpad Disabled" "$HOME/.config/dunst/touchpad_disabled.png"

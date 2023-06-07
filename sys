@@ -3,21 +3,28 @@
 username="murtaza"
 
 function update() {
-  nix flake update
+    nix flake update
 }
 
-function switch-nixos() {
-  sudo nixos-rebuild switch --flake .#
+function switch_nixos() {
+    sudo nixos-rebuild switch --flake .#
 }
 
-function switch-home-manager() {
-  nix run .#homeManagerConfigurations.$username.activationPackage
+function switch_home_manager() {
+    nix run .#homeManagerConfigurations.$username.activationPackage
+}
+
+function install_scripts() {
+    local target="$HOME/.local"
+    mkdir -p "$target"
+    ln -sft "$target" "$PWD/store/scripts"
 }
 
 ######## bash completion context ########
 
-root=(update switch)
+root=(update switch install)
 switch=(nixos home-manager)
+install=(scripts)
 
 comp() {
     local arg="$1"
@@ -34,7 +41,12 @@ if [[ -n "$COMP_LINE" ]]; then
         exit 0
     fi
 
-    comp "$2" "${switch[@]}"
+    if [[ "$3" == "switch" ]]; then
+        comp "$2" "${switch[@]}"
+    elif [[ "$3" == "install" ]]; then
+        comp "$2" "${install[@]}"
+    fi
+
     exit 0
 fi
 
@@ -49,16 +61,22 @@ cmd="$1"
 arg="$2"
 
 case "$cmd" in
-  "update")
-    update
-    ;;
-  "switch")
-    case "$arg" in
-      nixos) switch-nixos ;;
-      home-manager) switch-home-manager ;;
-      "") switch-nixos && switch-home-manager ;;
-      *) echo "invalid command" ;;
-    esac
-    ;;
-  *) echo "invalid command" ;;
+    "update")
+        update
+        ;;
+    "switch")
+        case "$arg" in
+            nixos) switch_nixos ;;
+            home-manager) switch_home_manager ;;
+            "") switch_nixos && switch_home_manager ;;
+            *) echo "invalid command: $arg" ;;
+        esac
+        ;;
+    "install")
+        case "$arg" in
+            scripts) install_scripts ;;
+            *) echo "invalid command: $arg" ;;
+        esac
+        ;;
+    *) echo "invalid command: $cmd" ;;
 esac
