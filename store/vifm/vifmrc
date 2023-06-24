@@ -17,7 +17,7 @@ set nohlsearch
 set scrolloff=5
 set timeoutlen=300
 
-" filetype * o %f
+filetype * xdg-open %f
 
 highlight clear
 highlight Border cterm=none	ctermfg=none ctermbg=default
@@ -27,7 +27,7 @@ highlight Win cterm=none ctermfg=none ctermbg=default
 highlight CmdLine cterm=none ctermfg=none ctermbg=default
 
 " Open all images in current directory in sxiv thumbnail mode
-nnoremap tx :!sxiv -t %d & <cr>
+nnoremap tx :!nsxiv -t %d & <cr>
 
 " Start shell in current directory
 nnoremap s :shell<cr>
@@ -48,11 +48,3 @@ nnoremap e :edit<cr>
 nnoremap <space> :select<CR>
 nnoremap md :mkdir<space>
 nnoremap mf :touch<space>
-nnoremap gh :cd ~/<CR>
-nnoremap gd :cd ~/Downloads<CR>
-nnoremap gD :cd ~/Documents<CR>
-nnoremap gp :cd ~/Pictures<CR>
-nnoremap gv :cd ~/Videos<CR>
-nnoremap gm :cd ~/Music<CR>
-nnoremap g. :cd ~/.config<CR>
-nnoremap gu :cd /run/media/murtaza<CR>

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-readarray -d '' files < <(find "$HOME/.local/bin/" -type f -print0)
+readarray -d '' files < <(find "$HOME/.local/scripts/" -type f -print0)
 
 if [[ -n "$COMP_LINE" ]]; then
     for f in "${files[@]}"; do

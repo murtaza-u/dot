@@ -16,6 +16,39 @@ if [ "$img" = "mysql" ]; then
     exit 0
 fi
 
+if [ "$img" = "keye" ]; then
+    vol="$HOME/.local/share/keye"
+    mkdir -p "$vol"
+
+    exec docker run -it -d \
+        --name keye \
+        -p 23023:23023 \
+        -v "$vol:/data" \
+        -e "KEYE_DB_FILE_PATH=/data/data.db" \
+        -e "KEYE_PORT=23023" \
+        -e "KEYE_WATCHER_PING_INTERVAL=10s" \
+        -e "KEYE_EVENT_QUEUE_SIZE=10" \
+        -e "KEYE_ENABLE_REFLECTION=0" \
+        -e "KEYE_USE_JSON_LOGGER=0" \
+        -e "KEYE_DEBUG=0" \
+        murtazau/keye:23.12
+    exit 0
+fi
+
+if [ "$img" = "postgres" ]; then
+    echo "POSTGRES_USER: root"
+    echo "POSTGRES_PASSWORD: toor"
+
+    docker run -it -d \
+        --name postgres \
+        -e POSTGRES_USER=root \
+        -e POSTGRES_PASSWORD=toor \
+        -v pgdata:/var/lib/postgresql/data \
+        -p 5432:5432 \
+        postgres:16.1-alpine3.18
+    exit 0
+fi
+
 if [ "$img" = "mongo" ]; then
     echo "MONGO_INITDB_ROOT_PASSWORD: toor"
 
@@ -40,10 +73,11 @@ if [ "$img" = "etcd" ]; then
     docker run -it -d \
         -p 2379:2379 \
         -p 2380:2380 \
+        --restart=always \
         --mount type=bind,source="$VOL",destination=/var/run/etcd \
         --name etcd \
         --hostname etcd \
-        quay.io/coreos/etcd:v3.5.7 \
+        quay.io/coreos/etcd:v3.5.10-amd64 \
         /usr/local/bin/etcd \
         --name etcd \
         --listen-peer-urls http://0.0.0.0:2380 \

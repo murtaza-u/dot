@@ -15,13 +15,6 @@ return require('packer').startup({function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- use {
-    --     'mohamed-abdelnour/modus_themes.nvim',
-    --     config = function()
-    --         require("modus_themes").operandi()
-    --     end,
-    -- }
-
     use {
         'navarasu/onedark.nvim',
         config = function()

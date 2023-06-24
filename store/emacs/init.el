@@ -1,7 +1,3 @@
-;; disable transparency
-(set-frame-parameter (selected-frame) 'alpha '(100 . 100))
-(add-to-list 'default-frame-alist '(alpha . (100 . 100)))
-
 ;; package sources
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
 						 ("org"   . "https://orgmode.org/elpa/")
@@ -16,6 +12,14 @@
   (require 'package)
   (setq use-package-always-ensure t
 		use-package-expand-minimally t))
+
+;; disable transparency
+(set-frame-parameter (selected-frame) 'alpha '(100 . 100))
+(add-to-list 'default-frame-alist '(alpha . (100 . 100)))
+
+;; fix frame size
+(add-to-list 'default-frame-alist '(height . 25))
+(add-to-list 'default-frame-alist '(width . 120))
 
 ;; built into emacs >=28.1
 (use-package emacs
@@ -62,10 +66,15 @@
 					:height 160
 					:weight 'medium)
 
+
 ;; no clutter
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+
+;; Don’t pop up a buffer to warn me about deprecations and other minor
+;; issues.
+(setq warning-minimum-level :emergency)
 
 ;; get rid of startup buffer
 (setq inhibit-startup-message t)
@@ -80,12 +89,21 @@
 ;; smooth scrolling
 (setq scroll-conservatively 101)
 
+;; move by logical lines rather than visual lines (better for macros)
+(setq line-move-visual nil)
+
 ;; shorter tab width. Default: 8
 (setq-default tab-width 4)
 
 ;; set text width to 72 (default: 70)
 (setq-default fill-column 72
 			  word-wrap t)
+
+;; don't interrupt me with native compilation warnings
+(setq native-comp-async-report-warnings-errors nil)
+
+;; blinking cursors are annoying
+(blink-cursor-mode 0)
 
 ;; remember and restore the last cursor location of opened files
 (save-place-mode 1)
@@ -107,6 +125,12 @@
 (electric-pair-mode)
 
 (setq-default show-trailing-whitespace t)
+
+;; handy function to reload emacs config
+(defun reload-config()
+  (interactive)
+  (load-file user-init-file)
+  (load-file user-init-file))
 
 ;; It's a tale as old as time: a stubborn, shell-dwelling, and
 ;; melodramatic vimmer -- tormented by Vimscript and his boundless
@@ -217,14 +241,19 @@
 
 (use-package consult
   :bind (:map evil-normal-state-map
-			  ("<leader>rg" . consult-ripgrep)
-			  ("C-f"        . consult-flymake)
-			  ("C-/"        . consult-line)
-			  ("C-p"        . consult-find)))
+			  ("<leader>g" . consult-ripgrep)
+			  ("C-f"       . consult-flymake)
+			  ("C-/"       . consult-line)))
+
+(use-package project
+  :ensure nil
+  :bind (:map evil-normal-state-map
+			  ("C-p" . project-find-file)))
 
 ;; on par with most of the terminal emulators. Only works on
 ;; Linux/MacOS
 (use-package vterm
+  :bind (("C-<escape>" . evil-collection-vterm-toggle-send-escape))
   :config
   ;; change cursor shape to box
   (add-hook 'vterm-mode-hook
@@ -232,20 +261,18 @@
 			  (setq-local evil-insert-state-cursor 'box)))
 
   ;; vterm can have my escape
-  (evil-collection-vterm-toggle-send-escape)
+  ;; (evil-collection-vterm-toggle-send-escape)
 
   ;; make C-c behave normally
   (evil-define-key 'insert vterm-mode-map (kbd "C-c") #'vterm--self-insert)
 
   ;; faster
-  (setq vterm-timer-delay 0.01)
+  (setq vterm-timer-delay 0.01))
 
+(use-package vterm-toggle
+  :config
   ;; call vterm from anywhere
-  (global-set-key (kbd "<C-return>") 'vterm))
-
-;; snippet engine
-(use-package yasnippet
-  :hook ((go-mode python-mode) . yas-minor-mode))
+  (global-set-key (kbd "<C-return>") 'vterm-toggle))
 
 ;; docs
 (use-package eldoc
@@ -263,19 +290,22 @@
 
 ;; lsp client
 (use-package eglot
-  :hook ((go-mode html-mode css-mode javascript-mode python-mode) . 'eglot-ensure)
+  :hook ((go-mode web-mode) . 'eglot-ensure)
   :bind (:map evil-normal-state-map
 			  ("g d" . xref-find-definitions)
 			  ("g r" . xref-find-references)
 			  ("<leader>ir" . eglot-rename)
 			  ("<leader>a"  . eglot-code-actions))
   :config
+  (add-to-list 'eglot-server-programs '((web-mode :language-id "html") . ("tailwindcss-language-server")))
   (setq eglot-managed-mode-hook (list (lambda () (eldoc-mode -1)))
-		flymake-no-changes-timeout 0.1))
+		eglot-autoshutdown t
+		eglot-send-changes-idle-time 0
+		flymake-no-changes-timeout 0))
 
 ;; completion engine
 (use-package corfu
-  :hook ((go-mode html-mode css-mode javascript-mode python-mode) . corfu-mode)
+  ;; :hook ((go-mode) . corfu-mode) ;; run corfu only for go-mode
   :custom
   (corfu-cycle t)
   (corfu-auto t)
@@ -288,12 +318,32 @@
 			  ("S-TAB"   . corfu-previous)
 			  ([backtab] . corfu-previous))
   :init
-  (corfu-history-mode))
+  (global-corfu-mode)
+  (corfu-history-mode)
+  (corfu-popupinfo-mode))
+
+;; snippet engine
+(use-package yasnippet
+  :init
+  (yas-global-mode)
+  :hook ((go-mode) . yas-minor-mode))
+
+;; automatic code formatting
+(use-package apheleia
+  :ensure t
+  :config
+  (apheleia-global-mode +1))
 
 ;; Git Porcelain inside Emacs
 (use-package magit
   :bind (:map evil-normal-state-map
-			  ("g s" . magit-status)))
+			  ("g s" . magit-status))
+  :config
+  ;; highlight commit text in the summary line that goes beyond 50
+  ;; characters.
+  (use-package git-commit
+	:config
+	(setq git-commit-summary-max-length 50)))
 
 (use-package perspective
   :custom
@@ -308,6 +358,10 @@
   :init
   (persp-mode))
 
+(use-package direnv
+  :config
+  (direnv-mode))
+
 (use-package markdown-mode
   :mode "\\.md$")
 
@@ -317,17 +371,33 @@
 (use-package protobuf-mode
   :mode "\\.proto$")
 
-;; major mode for editing Go code
-(use-package go-mode
-  :mode "\\.go$"
-  :config
-  (defun eglot-format-buffer-on-save ()
-	(add-hook 'before-save-hook #'eglot-format-buffer -10 t))
-  (add-hook 'go-mode-hook #'eglot-format-buffer-on-save))
+(use-package nix-mode
+  :mode "\\.nix\\'")
 
-(use-package python-mode
-  :mode "\\.py$"
-  :config
-  (defun eglot-format-buffer-on-save ()
-	(add-hook 'before-save-hook #'eglot-format-buffer -10 t))
-  (add-hook 'python-mode-hook #'python-format-buffer-on-save))
+(use-package go-mode
+  :mode "\\.go$")
+
+(use-package web-mode
+  :mode (("\\.html\\'" . web-mode)
+         ("\\.css\\'"  . web-mode)
+		 ("\\.js\\'"   . web-mode))
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (web-mode-auto-close-style 1)
+  (web-mode-enable-auto-closing t)
+  (web-mode-enable-auto-indentation nil)
+  (web-mode-enable-auto-quoting nil)
+  (web-mode-enable-auto-pairing nil)
+  (web-mode-enable-auto-opening nil)
+  (css-indent-offset 2)
+  (js-indent-level 2))
+
+(use-package emmet-mode
+  :ensure t
+  :bind
+  ("C-j" . emmet-expand-line)
+  (:map emmet-mode-keymap
+        ("M-}" . emmet-next-edit-point)
+        ("M-{" . emmet-prev-edit-point)))

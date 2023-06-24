@@ -163,7 +163,7 @@ if ! shopt -oq posix; then
     fi
 fi
 
-owncomp=(vic sshkey x snip zet muttoauth email antisctl)
+owncomp=(vic sshkey x snip zet muttoauth email)
 for i in "${owncomp[@]}"; do
     complete -C "$i" "$i";
 done
