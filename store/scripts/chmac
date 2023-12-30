@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-interfaces=("wlp1s0")
-
-for i in "${interfaces[@]}"; do
-    sudo ip link set down "$i"
-    sudo macchanger -r "$i"
-    sudo ip link set up "$i"
-done

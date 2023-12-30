@@ -1,26 +1,5 @@
 {
   "nodes": {
-    "home-manager": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1703367386,
-        "narHash": "sha256-FMbm48UGrBfOWGt8+opuS+uLBLQlRfhiYXhHNcYMS5k=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "d5824a76bc6bb93d1dce9ebbbcb09a9b6abcc224",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "release-23.11",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1703467016,
@@ -39,29 +18,7 @@
     },
     "root": {
       "inputs": {
-        "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
-        "z": "z"
-      }
-    },
-    "z": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1693202798,
-        "narHash": "sha256-cLzVphQGP0HqOIwgycLreYSr+Vg4AY3PpVFg5IQK8cs=",
-        "owner": "murtaza-u",
-        "repo": "z",
-        "rev": "1d8e77bdcad136be01410a447e39644b87b34c6e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "murtaza-u",
-        "repo": "z",
-        "type": "github"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
