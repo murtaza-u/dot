@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+username="${USER:-murtaza}"
+
+function update() {
+    nix flake update
+}
+
+function switch_nixos() {
+    sudo nixos-rebuild switch --flake .# "$@"
+}
+
+function switch_home_manager() {
+    nix run .#homeConfigurations.$username.activationPackage
+}
+
+function install_scripts() {
+    local target="$HOME/.local"
+    mkdir -p "$target"
+    ln -sft "$target" "$PWD/store/scripts"
+}
+
+function install_neovim() {
+    local target="$HOME/.config"
+    mkdir -p "$target"
+    ln -sft "$target" "$PWD/store/nvim"
+}
+
+function install_emacs() {
+    local target="$HOME/.config/emacs"
+    mkdir -p "$target"
+    ln -sft "$target" "$PWD/store/emacs/init.el"
+}
+
+######## bash completion context ########
+
+root=(update switch install)
+switch=(nixos home-manager)
+install=(scripts neovim emacs)
+
+comp() {
+    local arg="$1"
+    shift
+
+    for c in "$@"; do
+        [[ "${c:0:${#arg}}" == "${arg,,}" ]] && echo "$c"
+    done
+}
+
+if [[ -n "$COMP_LINE" ]]; then
+    if [[ "$1" == "$3" ]]; then
+        comp "$2" "${root[@]}"
+        exit 0
+    fi
+
+    if [[ "$3" == "switch" ]]; then
+        comp "$2" "${switch[@]}"
+    elif [[ "$3" == "install" ]]; then
+        comp "$2" "${install[@]}"
+    fi
+
+    exit 0
+fi
+
+numargs="${#@}"
+
+if [[ "$numargs" -lt 1 ]]; then
+    echo "very few arguments"
+    exit 1
+fi
+
+cmd="$1"; shift
+arg="$1"; shift
+
+case "$cmd" in
+    "update")
+        update
+        ;;
+    "switch")
+        case "$arg" in
+            "") switch_nixos "$@" ;;
+            nixos) switch_nixos "$@" ;;
+            home-manager) switch_home_manager ;;
+            *) echo "invalid command: $arg" ;;
+        esac
+        ;;
+    "install")
+        case "$arg" in
+            scripts) install_scripts ;;
+            neovim) install_neovim ;;
+            emacs) install_emacs ;;
+            *) echo "invalid command: $arg" ;;
+        esac
+        ;;
+    *) echo "invalid command: $cmd" ;;
+esac
