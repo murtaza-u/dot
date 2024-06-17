@@ -3,7 +3,7 @@ let
   homeDirectory = "/home/${username}";
 in
 {
-  imports = [ ../../modules/home-manager ];
+  imports = [ ../../modules ];
 
   # let home manager install and manage itself
   programs.home-manager.enable = true;
