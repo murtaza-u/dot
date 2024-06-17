@@ -4,5 +4,6 @@
   imports = [
     ./desktop
     ./tools
+    ./editor
   ];
 }

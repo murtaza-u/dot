@@ -75,4 +75,5 @@ in
     w3m.enable = true;
     newsboat.enable = true;
   };
+  editor.vim.enable = true;
 }
