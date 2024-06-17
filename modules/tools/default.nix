@@ -5,5 +5,6 @@
     ./git.nix
     ./direnv.nix
     ./gpg.nix
+    ./tmux.nix
   ];
 }

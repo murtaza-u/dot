@@ -69,5 +69,6 @@ in
     git.enable = true;
     direnv.enable = true;
     gpg.enable = true;
+    tmux.enable = true;
   };
 }
