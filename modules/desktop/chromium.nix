@@ -13,6 +13,7 @@
         { id = "pkehgijcmpdhfbdbbnkijodmdjhbjlgp"; } # privacy badger
         { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
         { id = "bhchdcejhohfmigjafbampogmaanbfkg"; } # user-agent spoofer
+        { id = "oboonakemofpalcgghocfoadofidjkkk"; } # keepassxc-browser
       ];
     };
   };
