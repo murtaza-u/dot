@@ -6,5 +6,6 @@
     ./direnv.nix
     ./gpg.nix
     ./tmux.nix
+    ./vifm.nix
   ];
 }

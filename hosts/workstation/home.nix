@@ -70,5 +70,6 @@ in
     direnv.enable = true;
     gpg.enable = true;
     tmux.enable = true;
+    vifm.enable = true;
   };
 }
