@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   options = {
@@ -6,7 +6,7 @@
   };
 
   config = lib.mkIf config.editor.vim.enable {
-    programs.vim.enable = true;
+    home.packages = [ pkgs.nvi ];
     home.file.".vimrc".source = ../../store/vimrc;
   };
 }

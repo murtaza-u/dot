@@ -50,6 +50,15 @@ in
     pkgs.ripgrep
     pkgs.neovim
     pkgs.keepassxc
+  ] ++ [
+    (import ../../scripts/youtube.nix { inherit pkgs; })
+    (import ../../scripts/docx2pdf.nix { inherit pkgs; })
+    (import ../../scripts/qrfromimg.nix { inherit pkgs; })
+    (import ../../scripts/fish.nix { inherit pkgs; })
+    (import ../../scripts/figl.nix { inherit pkgs; })
+    (import ../../scripts/whichkey.nix { inherit pkgs; })
+    (import ../../scripts/extract.nix { inherit pkgs; })
+    (import ../../scripts/media-duration.nix { inherit pkgs; })
   ];
 
   xdg.enable = true;
