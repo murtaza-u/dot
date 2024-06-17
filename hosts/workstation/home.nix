@@ -64,6 +64,7 @@ in
     chromium.enable = true;
     alacritty.enable = true;
     zathura.enable = true;
+    nsxiv.enable = true;
   };
   tools = {
     git.enable = true;
@@ -71,5 +72,7 @@ in
     gpg.enable = true;
     tmux.enable = true;
     vifm.enable = true;
+    w3m.enable = true;
+    newsboat.enable = true;
   };
 }

@@ -7,5 +7,7 @@
     ./gpg.nix
     ./tmux.nix
     ./vifm.nix
+    ./w3m.nix
+    ./newsboat.nix
   ];
 }
