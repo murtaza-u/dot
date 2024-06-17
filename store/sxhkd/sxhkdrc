@@ -1,0 +1,71 @@
+super + Escape
+    pkill -USR1 -x sxhkd
+
+super + Return
+    $TERMINAL
+
+super + b
+    $BROWSER
+
+super + shift + Return
+    rofi -show drun
+
+super + shift + r
+    rofi -show run
+
+super + e
+    emacs
+
+XF86TouchpadToggle
+    touchpad
+
+XF86AudioMute
+    pulseaudio-ctl mute && vol-notify
+
+XF86AudioLowerVolume
+    pulseaudio-ctl down && vol-notify
+
+XF86AudioRaiseVolume
+    pulseaudio-ctl up && vol-notify
+
+XF86MonBrightnessDown
+    brightnessctl set 10- && backlight-notify
+
+XF86MonBrightnessUp
+    brightnessctl set +10 && backlight-notify
+
+### bspwm ###
+
+super + {q, shift + q}
+    bspc {wm -r, quit}
+
+super + x
+    bspc node -c
+
+super + {h,j,k,l}
+    bspc node -f {west,south,north,east}
+
+super + shift + {h,j,k,l}
+    bspc node -s {west,south,north,east}
+
+super + {_,shift + }{1-9}
+    bspc {desktop -f, node -d} {1-9}
+
+super + ctrl + {1-9}
+    bspc node -d {1-9} && bspc desktop -f {1-9}
+
+super + shift + f
+    toggle-fullscreen
+    # bspc desktop -l next
+
+super + {t,f}
+    bspc node -t {tiled,floating}
+
+super + ctrl + {l,s}
+    bspc node -g {locked,sticky}
+
+{alt, super} + Tab
+    bspc {node,desktop} -f last
+
+super + {i, d}
+    {bspc node -R 90, bspc node -R -90}

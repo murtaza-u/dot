@@ -1,0 +1,11 @@
+keymap j NEXT_LINK
+keymap k PREV_LINK
+keymap l GOTO_LINK
+keymap h BACK
+keymap C-l MOVE_RIGHT
+keymap C-h MOVE_LEFT
+keymap C-j MOVE_DOWN
+keymap C-k MOVE_UP
+keymap q EXIT
+keymap , EXTERN
+keymap O EXTERN_LINK

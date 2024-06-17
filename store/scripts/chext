@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+RECURSIVELY=0
+FROM=""
+TO=""
+
+usage() {
+    echo "Usage: $0 [-R] FROM TO"
+}
+
+if [[ "$#" -gt 3 ]]; then
+    usage
+    exit 1
+fi
+
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -R)
+            RECURSIVELY=1
+            ;;
+        *)
+            if [[ -z "$FROM" ]]; then
+                FROM="$1"
+            else
+                TO="$1"
+            fi
+            ;;
+    esac
+    shift 1
+done
+
+if [[ -z "$TO" ]]; then
+    usage
+    exit 1
+fi
+
+if [[ "$RECURSIVELY" == 1 ]]; then
+    echo "Renaming .$FROM to .$TO recursively"
+else
+    echo "Renaming .$FROM to .$TO"
+fi
+
+read -p "Press ^C to cancel OR any other key to continue"
+
+if [[ "$RECURSIVELY" == 1 ]]; then
+    while IFS= read -r -d '' file; do
+        mv "$file" "${file%"$FROM"}$TO"
+    done < <(find . -name "*.$FROM" -print0)
+else
+    while IFS= read -r -d '' file; do
+        mv "$file" "${file%"$FROM"}$TO"
+    done < <(find . -maxdepth 1 -name "*.$FROM" -print0)
+fi

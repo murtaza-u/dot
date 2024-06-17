@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+keysd="$HOME/.ssh"
+algo="ed25519"
+
+gen() {
+    name="${1:-$(date -u +%Y%m%d%H%M%S)}"
+    shift
+    ssh-keygen -a 100 -b 4096 -t "$algo" -f "$keysd/$name" "$@"
+}
+
+list () {
+    for k in "$keysd"/*.pub; do
+        k="${k##*/}"
+        k="${k%.pub}"
+        echo "$k"
+    done
+}
+
+comp() {
+    cmds=("gen" "ls")
+
+    for c in "${cmds[@]}"; do
+        [[ "${c:0:${#2}}" == "${2,,}" ]] && echo "$c"
+    done
+}
+
+if [[ -n "$COMP_LINE" ]]; then
+    comp "$@"
+    exit 0
+fi
+
+cmd="$1"
+[[ "$#" -gt 0 ]] && shift
+
+case "$cmd" in
+    gen) gen "$@" ;;
+    ls)  list "$@" ;;
+    * )  echo "invalid command" && exit 1 ;;
+esac

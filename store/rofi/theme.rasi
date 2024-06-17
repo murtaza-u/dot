@@ -1,0 +1,115 @@
+@theme "/dev/null"
+
+* {
+    fg: #383a42;
+	bg: #ffffff;
+    bg-alternate: #f2f2f2;
+
+    black: #383a42;
+    red: #ff0000;
+    green: #50a14f;
+    yellow: #e5c07b;
+    blue: #0184bc;
+    magenta: #a626a4;
+    cyan: #0997b3;
+    white: #fafafa;
+
+    lightblack: #4f525e;
+    lightred: #e06c75;
+    lightgreen: #98c379;
+    lightyellow: #c18401;
+    lightblue: #61afef;
+    lightmagenta: #c678dd;
+    lightcyan: #56b6c2;
+    lightwhite: #ffffff;
+}
+
+window {
+    height: 100%;
+    width: 30em;
+    location: west;
+    anchor: west;
+    border: 0px;
+    fg: @lightwhite;
+}
+
+mode-switcher {
+    border: 0px;
+    background-color: @lightblack;
+    padding: 0px;
+}
+
+button selected {
+    border-color: @lightgreen;
+    fg: @lightgreen;
+}
+
+inputbar {
+    background-color: @bg;
+    fg: @fg;
+    padding: 0.5em 0.1em 1em 0.5em;
+    border: 0px;
+}
+
+mainbox {
+    expand: true;
+    background-color: #1c1c1cee;
+    spacing: 0em;
+}
+
+listview {
+    padding: 0em;
+    dynamic: false;
+    lines: 0;
+}
+
+element {
+    padding: 0.5em;
+}
+
+element-text {
+    background-color: inherit;
+    fg:       inherit;
+}
+
+element selected normal {
+    background-color: @yellow;
+}
+
+element normal active {
+    fg: @fg;
+}
+
+element normal urgent {
+    fg: @lightred;
+}
+
+element alternate normal {
+    background-color: @bg-alternate;
+}
+
+element alternate active {
+    fg: @lightblue;
+}
+
+element alternate urgent {
+    fg: @lightred;
+}
+
+element selected active {
+    background-color: @lightblue;
+    fg: @black;
+}
+
+element selected urgent {
+    background-color: @lightred;
+    fg: @black;
+}
+
+error-message {
+    expand: true;
+    background-color: @red;
+    border-color: @lightred;
+    border: 0px;
+    padding: 0em;
+}

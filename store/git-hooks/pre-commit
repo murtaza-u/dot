@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+LIMIT=500000 # 500 KB
+declare -a files
+
+size() { stat -c%s "$1"; }
+
+size_check() {
+    declare -A large
+
+    for f in "${files[@]}"; do
+        [[ ! -e "$f" ]] && continue
+        s="$(size "$f")"
+        if [[ "$s" -gt "$LIMIT" ]]; then
+            large[$f]="$((s/1000))"
+        fi
+    done
+
+    if [[ "${#large[@]}" -gt 0 ]]; then
+        echo "Files larger than 500 KB"
+
+        for k in "${!large[@]}"; do
+            printf "\t%s: %d KB\n" "$k" "${large[$k]}"
+        done
+
+        echo "Aborting..."
+
+        exit 1
+    fi
+}
+
+bin_check() {
+    local -a bins
+
+    for f in "${files[@]}"; do
+        o="$(file -N "$f")"
+        if [[ "$o" =~ ELF.*executable ]]; then
+            bins+=("$f")
+        fi
+    done
+
+    if [[ "${#bins[@]}" -gt 0 ]]; then
+        echo "ELF Binaries detected"
+
+        for b in "${bins[@]}"; do
+            printf "\t%s\n" "$b"
+        done
+
+        echo "Aborting..."
+
+        exit 1
+    fi
+}
+
+# staged files
+getfiles() {
+    local against=HEAD
+    if ! git rev-parse --verify HEAD > /dev/null 2>&1; then
+        # empty tree
+        against="$(git hash-object -t tree /dev/null)"
+    fi
+
+    mapfile -t files < <(git diff-index --cached --name-only "$against")
+}
+
+check_replace_directive() {
+    if [[ ! -r go.mod ]]; then
+        exit 0
+    fi
+
+    mod="$(grep -E "^replace\s+.+\s{1}=>\s{1}.+$" go.mod)"
+    if [[ -z "$mod" ]]; then
+        exit 0
+    fi
+
+    echo "replace directive found in go.mod. Remove it before committing"
+    exit 1
+}
+
+root="$(git rev-parse --show-toplevel)"
+cd "$root" || exit 1
+
+getfiles
+bin_check
+size_check
+check_replace_directive
