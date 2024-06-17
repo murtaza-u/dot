@@ -99,6 +99,26 @@
     ];
   };
 
+  fonts = {
+    packages = with pkgs; [
+      roboto
+      noto-fonts-color-emoji
+      (nerdfonts.override { fonts = [ "ZedMono" ]; })
+    ];
+    fontDir.enable = true;
+    fontconfig = {
+      enable = true;
+      antialias = true;
+      hinting.style = "none";
+      defaultFonts = {
+        serif = [ "Roboto Medium" ];
+        sansSerif = [ "Roboto Medium" ];
+        monospace = [ "ZedMono Nerd Font" ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
+  };
+
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [ nvi ];
   environment.xfce.excludePackages = with pkgs.xfce // pkgs; [
