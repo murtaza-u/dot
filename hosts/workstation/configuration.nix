@@ -27,6 +27,7 @@
     configurationLimit = 20;
     device = "nodev";
     useOSProber = true; # dual-boot with windows
+    theme = "${pkgs.libsForQt5.breeze-grub}/grub/themes/breeze";
   };
 
   networking = {
@@ -66,7 +67,27 @@
       enableScreensaver = true;
     };
 
-    displayManager.lightdm.enable = true;
+    displayManager.lightdm = {
+      enable = true;
+      greeters.gtk = {
+        enable = true;
+        theme = {
+          name = "Breeeze";
+          package = pkgs.breeze-gtk;
+        };
+        iconTheme = {
+          name = "breeze";
+          package = pkgs.breeze-icons;
+        };
+        cursorTheme = {
+          name = "breeze_cursors";
+          package = pkgs.breeze-icons;
+        };
+        extraConfig = ''
+          background = ${../../store/nixos.png}
+        '';
+      };
+    };
   };
 
   services.displayManager.defaultSession = "xfce";
