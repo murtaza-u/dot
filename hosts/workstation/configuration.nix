@@ -170,4 +170,18 @@
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 5000 ];
   networking.firewall.allowedUDPPorts = [ ];
+
+  # Enable docker and libvirtd
+  virtualisation = {
+    docker = {
+      enable = true;
+      rootless.enable = true;
+      autoPrune = {
+        enable = true;
+        dates = "weekly";
+        flags = [ "-f" ];
+      };
+    };
+    libvirtd.enable = true;
+  };
 }
