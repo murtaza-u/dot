@@ -13,8 +13,8 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-amd" "v4l2loopback" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
   fileSystems = {
     "/" = {

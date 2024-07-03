@@ -7,5 +7,6 @@
     ./chromium.nix
     ./zathura.nix
     ./nsxiv.nix
+    ./mpv.nix
   ];
 }

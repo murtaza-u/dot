@@ -6,7 +6,7 @@ case $- in
     *) return ;;
 esac
 
-# --------------------------------- PATH ----------------------------------
+# --------------------------------- PATH --------------------------------------
 pathappend() {
     declare arg
     for arg in "$@"; do
@@ -44,13 +44,25 @@ pathappend \
     "$HOME/.turso" \
     "$HOME/.zig"
 
-# --------------------------------- CDPATH --------------------------------
+# --------------------------------- CDPATH ------------------------------------
 export CDPATH=".:$HOME:$HOME/Repos/github.com/murtaza-u"
 
 export TERM=xterm-256color
 
 # helper functions
 _have() { type "$1" &>/dev/null; }
+
+# -------------------------- environment variables ----------------------------
+REPOS="$HOME/Repos"
+GITUSER="murtaza-u"
+
+# go
+CGO_ENABLED=0
+GOPATH="$HOME/.local/share/go"
+GOBIN="$GOPATH/bin"
+
+# colored GCC warnings and errors
+GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
 
 # ----------------------------- history ---------------------------------------
 # don't put duplicate lines or lines starting with space in the history.

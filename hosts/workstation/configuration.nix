@@ -141,7 +141,7 @@
   };
 
   # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [ nvi ];
+  environment.systemPackages = with pkgs; [ nvi virt-manager ];
   environment.xfce.excludePackages = with pkgs.xfce // pkgs; [
     mousepad
     parole
@@ -165,6 +165,10 @@
     driSupport32Bit = true;
     driSupport = true;
   };
+
+  # Enable bluetooth.
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   # Open ports in the firewall.
   networking.firewall.enable = true;

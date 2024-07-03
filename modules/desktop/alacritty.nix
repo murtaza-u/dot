@@ -32,7 +32,7 @@ let
         foreground = "0x000000";
       };
       normal = {
-        black = "0xffffff";
+        black = "0xa9a9a9";
         red = "0xa60000";
         green = "0x006800";
         yellow = "0x6f5500";
@@ -42,7 +42,7 @@ let
         white = "0x000000";
       };
       bright = {
-        black = "0xf2f2f2";
+        black = "0x708090";
         red = "0xd00000";
         green = "0x008900";
         yellow = "0x808000";
