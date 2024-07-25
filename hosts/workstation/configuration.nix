@@ -171,9 +171,9 @@
   services.blueman.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 5000 ];
-  networking.firewall.allowedUDPPorts = [ ];
+  networking.firewall.enable = false;
+  # networking.firewall.allowedTCPPorts = [ ];
+  # networking.firewall.allowedUDPPorts = [ ];
 
   # Enable docker and libvirtd
   virtualisation = {

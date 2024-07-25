@@ -26,6 +26,8 @@ in
     pkgs.neovim
     pkgs.keepassxc
     pkgs.vscodium
+    pkgs.qbittorrent
+    pkgs.element-desktop
   ] ++ [
     (import ../../scripts/youtube.nix { inherit pkgs; })
     (import ../../scripts/docx2pdf.nix { inherit pkgs; })
@@ -62,4 +64,5 @@ in
     newsboat.enable = true;
   };
   editor.vim.enable = true;
+  system.syncthing.enable = true;
 }

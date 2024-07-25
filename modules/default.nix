@@ -5,5 +5,6 @@
     ./desktop
     ./tools
     ./editor
+    ./system
   ];
 }
