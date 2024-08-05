@@ -38,37 +38,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
-local cap = vim.lsp.protocol.make_client_capabilities()
-cap.textDocument.completion.completionItem = {
-    documentationFormat = { "markdown", "plaintext" },
-    snippetSupport = true,
-    preselectSupport = true,
-    insertReplaceSupport = true,
-    labelDetailsSupport = true,
-    deprecatedSupport = true,
-    commitCharactersSupport = true,
-    tagSupport = { valueSet = { 1 } },
-    resolveSupport = {
-        properties = {
-            "documentation",
-            "detail",
-            "additionalTextEdits",
-        },
-    },
-}
-
-local lspconfig = require("lspconfig")
-
-lspconfig.clangd.setup{
-    capabilities = cap,
-    settings = {
-        gopls = {
-            staticcheck = true,
-            gofumpt = true,
-        },
-    },
-}
-
+-- go
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.go",
   callback = function()
@@ -93,7 +63,37 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end
 })
 
-lspconfig.gopls.setup{ capabilities = cap }
+local cap = vim.lsp.protocol.make_client_capabilities()
+cap.textDocument.completion.completionItem = {
+    documentationFormat = { "markdown", "plaintext" },
+    snippetSupport = true,
+    preselectSupport = true,
+    insertReplaceSupport = true,
+    labelDetailsSupport = true,
+    deprecatedSupport = true,
+    commitCharactersSupport = true,
+    tagSupport = { valueSet = { 1 } },
+    resolveSupport = {
+        properties = {
+            "documentation",
+            "detail",
+            "additionalTextEdits",
+        },
+    },
+}
+
+local lspconfig = require("lspconfig")
+
+lspconfig.clangd.setup{ capabilities = cap }
+lspconfig.gopls.setup{
+    capabilities = cap,
+    settings = {
+        gopls = {
+            staticcheck = true,
+            gofumpt = true,
+        },
+    },
+}
 lspconfig.html.setup{ capabilities = cap }
 lspconfig.cssls.setup{ capabilities = cap }
 lspconfig.tsserver.setup{ capabilities = cap }
@@ -115,7 +115,6 @@ lspconfig.tailwindcss.setup{
     }
 }
 lspconfig.templ.setup{ capabilities = cap }
-lspconfig.svelte.setup{}
 lspconfig.nixd.setup{ capabilities = cap }
 lspconfig.zls.setup{
     capabilities = cap,

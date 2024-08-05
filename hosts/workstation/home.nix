@@ -17,6 +17,7 @@ in
   };
   home.packages = [
     pkgs.xclip
+    pkgs.file
     pkgs.tree
     pkgs.bc
     pkgs.ffmpeg
@@ -28,6 +29,7 @@ in
     pkgs.vscodium
     pkgs.qbittorrent
     pkgs.element-desktop
+    pkgs.calibre
   ] ++ [
     (import ../../scripts/youtube.nix { inherit pkgs; })
     (import ../../scripts/docx2pdf.nix { inherit pkgs; })

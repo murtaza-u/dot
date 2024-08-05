@@ -26,7 +26,7 @@
     efiSupport = true;
     configurationLimit = 20;
     device = "nodev";
-    useOSProber = true; # dual-boot with windows
+    useOSProber = false; # dual-boot with windows
     theme = "${pkgs.libsForQt5.breeze-grub}/grub/themes/breeze";
   };
 
