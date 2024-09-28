@@ -36,7 +36,8 @@ pathprepend \
     /usr/local/go/bin \
     "$HOME/.local/bin" \
     "$HOME/.local/scripts" \
-    "$HOME/.local/share/go/bin"
+    "$HOME/.local/share/go/bin" \
+    "$HOME/.krew/bin"
 
 pathappend \
     "$HOME/.nimble/bin" \

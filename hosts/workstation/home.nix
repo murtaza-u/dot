@@ -1,4 +1,4 @@
-{ pkgs, stateVersion, username, ... }@inputs:
+{ pkgs, unstable-nixpkgs, zpkgs, stateVersion, username, ... }@inputs:
 let
   homeDirectory = "/home/${username}";
 in
@@ -24,12 +24,16 @@ in
     pkgs.imagemagick
     pkgs.jq
     pkgs.ripgrep
-    pkgs.neovim
+    unstable-nixpkgs.neovim
     pkgs.keepassxc
     pkgs.vscodium
     pkgs.qbittorrent
-    pkgs.element-desktop
-    pkgs.calibre
+    pkgs.gnome.cheese
+    pkgs.gimp
+    pkgs.simplescreenrecorder
+    pkgs.gcolor2
+  ] ++ [
+    zpkgs.default
   ] ++ [
     (import ../../scripts/youtube.nix { inherit pkgs; })
     (import ../../scripts/docx2pdf.nix { inherit pkgs; })
@@ -65,6 +69,9 @@ in
     w3m.enable = true;
     newsboat.enable = true;
   };
-  editor.vim.enable = true;
+  editor = {
+    vim.enable = true;
+    emacs.enable = true;
+  };
   system.syncthing.enable = true;
 }

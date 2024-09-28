@@ -26,7 +26,7 @@
     efiSupport = true;
     configurationLimit = 20;
     device = "nodev";
-    useOSProber = false; # dual-boot with windows
+    useOSProber = true; # dual-boot with windows
     theme = "${pkgs.libsForQt5.breeze-grub}/grub/themes/breeze";
   };
 
@@ -156,6 +156,9 @@
     enableSSHSupport = true;
   };
 
+  # use your phone as webcam
+  programs.droidcam.enable = true;
+
   # List services that you want to enable:
   services.fstrim.enable = true; # SSD
   services.fwupd.enable = true; # firmware update service
@@ -188,4 +191,6 @@
     };
     libvirtd.enable = true;
   };
+
+  security.polkit.enable = true;
 }

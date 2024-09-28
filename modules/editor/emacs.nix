@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   options = {
@@ -10,9 +10,10 @@
       enable = true;
       extraPackages = epkgs: [ epkgs.vterm ];
     };
-    xdg.configFile.emacs = {
-      source = ../../store/emacs;
-      recursive = true;
-    };
+    home.packages = [ pkgs.ispell ];
+    # xdg.configFile.emacs = {
+    #   source = ../../store/emacs;
+    #   recursive = true;
+    # };
   };
 }

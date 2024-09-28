@@ -88,6 +88,42 @@ let
         white = "0xebdbb2";
       };
     };
+    tokyonightDay = {
+      primary = {
+        background = "#f8f8ff";
+        foreground = "#000000";
+      };
+      normal = {
+        black = "#b4b5b9";
+        red = "#f52a65";
+        green = "#587539";
+        yellow = "#8c6c3e";
+        blue = "#1c05b3";
+        magenta = "#391e5d";
+        cyan = "#007197";
+        white = "#6172b0";
+      };
+      bright = {
+        black = "#a1a6c5";
+        red = "#f52a65";
+        green = "#587539";
+        yellow = "#8c6c3e";
+        blue = "#2e7de9";
+        magenta = "#9854f1";
+        cyan = "#007197";
+        white = "#3760bf";
+      };
+      indexed_colors = [
+        {
+          index = 16;
+          color = "#b15c00";
+        }
+        {
+          index = 17;
+          color = "#c64343";
+        }
+      ];
+    };
   };
 in
 { config, lib, ... }:

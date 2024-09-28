@@ -1,8 +1,8 @@
 local actions = require("telescope.actions")
 
-require('telescope').setup{
+require('telescope').setup({
     defaults = {
-		prompt_prefix = "➤ ",
+        prompt_prefix = "➤ ",
         selection_caret = "➥ ",
         mappings = {
             i = {
@@ -11,7 +11,10 @@ require('telescope').setup{
                 ["<esc>"] = actions.close,
                 ["<C-q>"] = actions.send_to_qflist,
             }
-        }
+        },
+        layout_config = {
+            preview_width = 0.6,
+        },
     },
     extensions = {
         fzf = {
@@ -21,8 +24,7 @@ require('telescope').setup{
             case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
         }
     }
-}
+})
 
--- To get fzf loaded and working with telescope, you need to call
--- load_extension, somewhere after setup function:
-require('telescope').load_extension('fzf')
+-- load fzf native extension, if installed
+pcall(require('telescope').load_extension('fzf'))

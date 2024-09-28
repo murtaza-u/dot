@@ -1,9 +1,12 @@
-local cmp = require('cmp')
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 cmp.setup({
     preselect = true,
     auto_select = true,
-    completion = {completeopt = 'menu,menuone,noinsert'},
+    completion = {
+        completeopt = 'menu,menuone,noinsert',
+    },
     formatting = {
         format = function(entry, item)
             -- set a name for each source
@@ -15,7 +18,7 @@ cmp.setup({
                 nvim_lsp = "[LSP]",
                 path = "[Path]",
                 look = "[Look]",
-                treesitter = "[treesitter]",
+                treesitter = "[Treesitter]",
                 luasnip = "[LuaSnip]",
                 nvim_lua = "[Lua]",
                 latex_symbols = "[Latex]",
@@ -26,12 +29,28 @@ cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
         end,
     },
     mapping = cmp.mapping.preset.insert({
-        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),

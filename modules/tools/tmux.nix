@@ -47,7 +47,7 @@
         # status bar
         set -g status-position top
         set -g status-interval 1
-        set -g status-right ""
+        set -g status-right "#(z pomo)"
         set -g status-left-length 60
         set -g status-style bg=default
 
