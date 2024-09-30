@@ -2,90 +2,90 @@ let
   themes = {
     oneLight = {
       primary = {
-        background = "0xfafafa";
-        foreground = "0x383a42";
+        background = "#fafafa";
+        foreground = "#383a42";
       };
       normal = {
-        black = "0x383a42";
-        red = "0xe45649";
-        green = "0x50a14f";
-        yellow = "0xc18401";
-        blue = "0x0184bc";
-        magenta = "0xa626a4";
-        cyan = "0x0997b3";
-        white = "0xfafafa";
+        black = "#383a42";
+        red = "#e45649";
+        green = "#50a14f";
+        yellow = "#c18401";
+        blue = "#0184bc";
+        magenta = "#a626a4";
+        cyan = "#0997b3";
+        white = "#fafafa";
       };
       bright = {
-        black = "0x383a42";
-        red = "0xe45649";
-        green = "0x50a14f";
-        yellow = "0xc18401";
-        blue = "0x0184bc";
-        magenta = "0xa626a4";
-        cyan = "0x0997b3";
-        white = "0xfafafa";
+        black = "#383a42";
+        red = "#e45649";
+        green = "#50a14f";
+        yellow = "#c18401";
+        blue = "#0184bc";
+        magenta = "#a626a4";
+        cyan = "#0997b3";
+        white = "#fafafa";
       };
     };
     modusOperandi = {
       primary = {
-        background = "0xfafafa";
-        foreground = "0x000000";
+        background = "#f8f8ff";
+        foreground = "#000000";
       };
       normal = {
-        black = "0xa9a9a9";
-        red = "0xa60000";
-        green = "0x006800";
-        yellow = "0x6f5500";
-        blue = "0x0031a9";
-        magenta = "0x721045";
-        cyan = "0x005e8b";
-        white = "0x000000";
+        black = "#a9a9a9";
+        red = "#a60000";
+        green = "#006800";
+        yellow = "#6f5500";
+        blue = "#0031a9";
+        magenta = "#721045";
+        cyan = "#005e8b";
+        white = "#000000";
       };
       bright = {
-        black = "0x708090";
-        red = "0xd00000";
-        green = "0x008900";
-        yellow = "0x808000";
-        blue = "0x0000ff";
-        magenta = "0xdd22dd";
-        cyan = "0x008899";
-        white = "0x595959";
+        black = "#708090";
+        red = "#d00000";
+        green = "#008900";
+        yellow = "#808000";
+        blue = "#0000ff";
+        magenta = "#dd22dd";
+        cyan = "#008899";
+        white = "#595959";
       };
       indexed_colors = [
         {
           index = 16;
-          color = "0x884900";
+          color = "#884900";
         }
         {
           index = 17;
-          color = "0x7f0000";
+          color = "#7f0000";
         }
       ];
     };
     gruvboxDark = {
       primary = {
-        background = "0x1d2021";
-        foreground = "0xebdbb2";
+        background = "#1d2021";
+        foreground = "#ebdbb2";
       };
       normal = {
-        black = "0x282828";
-        red = "0xcc241d";
-        green = "0x98971a";
-        yellow = "0xd79921";
-        blue = "0x458588";
-        magenta = "0xb16286";
-        cyan = "0x689d6a";
-        white = "0xa89984";
+        black = "#282828";
+        red = "#cc241d";
+        green = "#98971a";
+        yellow = "#d79921";
+        blue = "#458588";
+        magenta = "#b16286";
+        cyan = "#689d6a";
+        white = "#a89984";
       };
       bright = {
-        black = "0x928374";
-        red = "0xfb4934";
-        green = "0xb8bb26";
-        yellow = "0xfabd2f";
-        blue = "0x83a598";
-        magenta = "0xd3869b";
-        cyan = "0x8ec07c";
-        white = "0xebdbb2";
+        black = "#928374";
+        red = "#fb4934";
+        green = "#b8bb26";
+        yellow = "#fabd2f";
+        blue = "#83a598";
+        magenta = "#d3869b";
+        cyan = "#8ec07c";
+        white = "#ebdbb2";
       };
     };
     tokyonightDay = {

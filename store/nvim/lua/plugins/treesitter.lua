@@ -5,6 +5,7 @@ require('nvim-treesitter.configs').setup({
         'gosum',
         'gowork',
         'gotmpl',
+        'templ',
         'lua',
         'sql',
         'terraform',

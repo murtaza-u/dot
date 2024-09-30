@@ -28,6 +28,7 @@ require('lazy').setup({
                     hl.SpellBad = { fg = "#b60000", bold = true }
                     hl.SpellCap = { fg = "#70480f", bold = true  }
                     hl.IblIndent = { fg = "#dadada", nocombine = true  }
+                    hl.String = { fg = c.green_cooler }
                 end,
             })
             vim.cmd.colorscheme("modus")
