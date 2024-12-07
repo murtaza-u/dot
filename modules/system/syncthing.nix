@@ -6,9 +6,7 @@
   };
 
   config = lib.mkIf config.system.syncthing.enable {
-    services.syncthing = {
-      enable = true;
-    };
+    services.syncthing.enable = true;
     home.packages = [ pkgs.syncthingtray ];
   };
 }

@@ -15,9 +15,14 @@ require('nvim-treesitter.configs').setup({
         'typescript',
         'json',
         'nix',
+        'markdown',
+        'markdown_inline',
     },
     highlight = { enable = true },
-    indent = { enable = true },
+    indent = {
+        enable = true,
+        disable = { "markdown" },
+    },
     incremental_selection = {
         enable = true,
         keymaps = {

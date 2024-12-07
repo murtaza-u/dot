@@ -13,7 +13,7 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 10d";
+    options = "--delete-older-than 7d";
   };
 
   # GRUB
@@ -62,9 +62,13 @@
       options = "caps:escape";
     };
 
-    desktopManager.xfce = {
-      enable = true;
-      enableScreensaver = true;
+    desktopManager = {
+      xterm.enable = false;
+      xfce = {
+        enable = true;
+        enableScreensaver = true;
+        enableXfwm = true;
+      };
     };
 
     displayManager.lightdm = {
@@ -84,16 +88,13 @@
           package = pkgs.breeze-icons;
         };
         extraConfig = ''
-          background = ${../../store/nixos.png}
+          background = ${../../store/nixos.png};
         '';
       };
     };
   };
 
   services.displayManager.defaultSession = "xfce";
-
-  # Enable sound.
-  hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput = {
@@ -112,8 +113,6 @@
     extraGroups = [
       "wheel"
       "docker"
-      "video"
-      "audio"
       "networkmanager"
       "libvirtd"
       "wireshark"
@@ -125,6 +124,7 @@
       roboto
       noto-fonts-color-emoji
       (nerdfonts.override { fonts = [ "ZedMono" ]; })
+      corefonts
     ];
     fontDir.enable = true;
     fontconfig = {
@@ -163,11 +163,8 @@
   services.fstrim.enable = true; # SSD
   services.fwupd.enable = true; # firmware update service
 
-  hardware.opengl = {
-    enable = true;
-    driSupport32Bit = true;
-    driSupport = true;
-  };
+  # Enable hardware accelerated graphics drivers.
+  hardware.graphics.enable = true;
 
   # Enable bluetooth.
   hardware.bluetooth.enable = true;

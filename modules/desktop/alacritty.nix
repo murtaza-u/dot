@@ -175,7 +175,7 @@ in
         };
         mouse.hide_when_typing = true;
         selection.save_to_clipboard = true;
-        live_config_reload = true;
+        general.live_config_reload = true;
       };
     };
   };

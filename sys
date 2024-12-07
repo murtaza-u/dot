@@ -30,6 +30,7 @@ function install_emacs() {
     local target="$HOME/.config/emacs"
     mkdir -p "$target"
     ln -sft "$target" "$PWD/store/emacs/init.el"
+    ln -sft "$target" "$PWD/store/emacs/early-init.el"
 }
 
 ######## bash completion context ########

@@ -145,6 +145,11 @@ alias t='tmux -u'
 alias '?'=duck
 alias services='systemctl list-units --type=service'
 
+if _have kubectl; then
+    alias k=kubectl
+    source <(kubectl completion bash | sed 's/kubectl/k/g')
+fi
+
 clone() {
     local repo="$1" user
     local repo="${repo#https://github.com/}"
@@ -175,11 +180,18 @@ if ! shopt -oq posix; then
     fi
 fi
 
-owncomp=(vic sshkey x snip zet muttoauth email)
+owncomp=(vic sshkey x snip muttoauth email)
 for i in "${owncomp[@]}"; do
     complete -C "$i" "$i";
 done
-complete -C ~/.dot/sys ./sys
+
+if [[ -f "$HOME/.dot/sys" ]]; then
+    complete -C "$HOME/.dot/sys" ./sys
+fi
+
+if [[ -f "$REPOS/github.com/murtaza-u/site/note" ]]; then
+    complete -C "$REPOS/github.com/murtaza-u/site/note" ./note
+fi
 
 # --------------------------------- prompt ------------------------------------
 multiline_prompt=0

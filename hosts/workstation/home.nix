@@ -28,10 +28,13 @@ in
     pkgs.keepassxc
     pkgs.vscodium
     pkgs.qbittorrent
-    pkgs.gnome.cheese
+    pkgs.cheese
     pkgs.gimp
     pkgs.simplescreenrecorder
-    pkgs.gcolor2
+    pkgs.zoom-us
+    pkgs.deadbeef
+    pkgs.libreoffice
+    pkgs.mongodb-compass
   ] ++ [
     zpkgs.default
   ] ++ [
@@ -43,6 +46,7 @@ in
     (import ../../scripts/whichkey.nix { inherit pkgs; })
     (import ../../scripts/extract.nix { inherit pkgs; })
     (import ../../scripts/media-duration.nix { inherit pkgs; })
+    (import ../../scripts/stopwatch.nix { inherit pkgs; })
   ];
 
   xdg.enable = true;
@@ -55,6 +59,7 @@ in
       xresources.enable = true;
     };
     chromium.enable = true;
+    firefox.enable = true;
     alacritty.enable = true;
     zathura.enable = true;
     nsxiv.enable = true;

@@ -29,17 +29,18 @@ vim.filetype.add({
         end,
         html = twoSpaceTabs("html"),
         css = twoSpaceTabs("css"),
-        javascript = twoSpaceTabs("javascript"),
-        typescript = twoSpaceTabs("typescript"),
+        js = twoSpaceTabs("javascript"),
+        ts = twoSpaceTabs("typescript"),
         json = twoSpaceTabs("json"),
         xml = twoSpaceTabs("xml"),
         nix = twoSpaceTabs("nix"),
         proto = twoSpaceTabs("proto"),
         tf = twoSpaceTabs("tf"),
-        markdown = function(_, bufnr)
+        md = function(_, bufnr)
             return "markdown", function(bufnr)
-                vim.bo[bufnr].spell = true
-                vim.bo[bufnr].textwidth = 72
+                local winid = vim.api.nvim_get_current_win()
+                vim.wo[winid][0].spell = true
+                vim.bo[bufnr].textwidth = 78
             end
         end,
     },

@@ -59,7 +59,11 @@
 
 (setq-default show-trailing-whitespace t)
 
-(global-visual-line-mode 1)
+;; truncate long lines & hard wrap at 80 characters
+(setq-default fill-column 80)
+(setq-default auto-fill-function 'do-auto-fill)
+(setq-default truncate-lines t)
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
 ;; elisp - paces, not tabs
 (add-hook 'emacs-lisp-mode-hook
@@ -124,6 +128,13 @@
   (set-face-attribute 'mode-line-inactive nil
                       :height 160
                       :weight 'medium))
+
+;; gcmh to optimize gc
+(use-package gcmh
+  :config
+  (setq gcmh-high-cons-threshold (* 128 1024 1024))
+  (add-hook 'after-init-hook (lambda ()
+                               (gcmh-mode))))
 
 ;; It's a tale as old as time: a stubborn, shell-dwelling, and
 ;; melodramatic vimmer -- tormented by Vimscript and his boundless
@@ -246,56 +257,56 @@
   :config
   (direnv-mode))
 
-;; on par with most of the terminal emulators. Only works on
-;; Linux/MacOS
-(use-package vterm
-  :config
-  ;; change cursor shape to box
-  (add-hook 'vterm-mode-hook
-            (lambda ()
-              (setq-local evil-insert-state-cursor 'box)))
-
-  ;; vterm can have my escape
-  (evil-collection-vterm-toggle-send-escape)
-
-  ;; make C-c behave normally
-  (evil-define-key 'insert vterm-mode-map (kbd "C-c") #'vterm--self-insert)
-
-  ;; faster
-  (setq vterm-timer-delay 0.01))
-
-(use-package vterm-toggle
-  :config
-  ;; call vterm from anywhere
-  (global-set-key (kbd "<C-return>") 'vterm-toggle))
-
 ;; per filetype major mode
 (use-package protobuf-mode)
-(use-package nix-mode)
+(use-package nix-mode
+  :config
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '(nix-mode . ("nixd")))))
 (use-package go-mode
   :config
   (setq indent-tabs-mode t
         tab-width 4))
-(use-package markdown-mode)
+(use-package markdown-mode
+  :hook ((markdown-mode . (lambda ()
+                            (setq truncate-lines nil)
+                            (auto-fill-mode -1)
+                            (visual-line-mode)))))
 (use-package yaml-mode
   :mode "\\.ya?ml$")
 
-;; automatic code formatting
-(use-package apheleia
-  :hook ((go-mode) . (apheleia-mode)))
-
 ;; lsp client
 (use-package eglot
-  :hook ((go-mode) . 'eglot-ensure)
+  :ensure nil
+  :hook ((go-mode nix-mode) . 'eglot-ensure)
   :bind (:map evil-normal-state-map
               ("g d" . xref-find-definitions)
               ("g r" . xref-find-references)
               ("<leader>ir" . eglot-rename)
               ("<leader>a"  . eglot-code-actions))
+  :custom
+  (fset #'jsonrpc--log-event #'ignore)
   :config
+  (add-hook 'prog-mode-hook (lambda () (eldoc-mode -1)))
+  (add-hook 'eglot-managed-mode-hook (lambda ()
+                                       (eldoc-mode -1)
+                                       (define-key evil-normal-state-local-map (kbd "K") #'eldoc)))
+  ;; automatic code formatting
+  (add-hook 'eglot-managed-mode-hook (lambda ()
+                                       (add-hook 'before-save-hook #'eglot-format-buffer -10 t)))
   (setq eglot-autoshutdown t
         eglot-send-changes-idle-time 0
-        flymake-no-changes-timeout 0))
+        eglot-events-buffer-size 0
+        eglot-sync-connect nil
+        eglot-connect-timeout nil
+        flymake-no-changes-timeout 0)
+  ;; enable visual line mode for eldoc buffers
+  (defun eldoc-visual-line-mode (&rest _)
+    (with-current-buffer eldoc--doc-buffer
+      (setq-local visual-fill-column-center-text nil)
+      (turn-on-visual-line-mode)))
+  (advice-add 'eldoc-doc-buffer :after #'eldoc-visual-line-mode))
 
 ;; completion engine
 (use-package corfu
@@ -319,3 +330,9 @@
 (use-package yasnippet
   :config
   (yas-global-mode))
+
+;; visual indentation bars, especially for YAML
+(use-package indent-bars
+  :hook ((go-mode yaml-mode nix-mode) . indent-bars-mode)
+  :config
+  (setq indent-bars-width-frac 0.11))

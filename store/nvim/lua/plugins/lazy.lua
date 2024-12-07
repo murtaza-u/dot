@@ -146,4 +146,5 @@ require('lazy').setup({
         opts = {},
     },
     "tpope/vim-surround",
+    "hashivim/vim-terraform",
 })

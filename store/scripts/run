@@ -69,7 +69,7 @@ if [ "$img" = "mongo" ]; then
         --env MONGO_INITDB_ROOT_PASSWORD=toor \
         --volume="$data:/data/db" \
         -p 27017:27017 \
-        mongo:7.0.8-jammy
+        mongo:8.0.1-noble
     exit 0
 fi
 
