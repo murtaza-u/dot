@@ -1,8 +1,0 @@
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: ${1:myconfig}
-  namespace: ${2:default}
-data:
-  ${3:key}: ${4:value}
----

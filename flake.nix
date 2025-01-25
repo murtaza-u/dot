@@ -2,7 +2,7 @@
   description = "Murtaza Udaipurwala's NixOS configuration";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    unstable-nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { nixpkgs, unstable-nixpkgs, home-manager, nur, z, ... }:
+  outputs = { nixpkgs, unstable, home-manager, nur, z, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -41,24 +41,26 @@
         inherit system;
         inherit pkgs;
         modules = [
+          home-manager.nixosModules.home-manager
+          ./modules/nixos
+          ./hosts/workstation/nixos
           {
             nix.registry.nixpkgs.flake = nixpkgs;
             system.stateVersion = stateVersion;
           }
-          ./hosts/workstation
-          home-manager.nixosModules.home-manager
           {
             home-manager.backupFileExtension = "bkp";
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./hosts/workstation/home.nix;
+            home-manager.users.${username} = import ./hosts/workstation/home-manager;
             home-manager.extraSpecialArgs = {
               inherit pkgs;
               inherit stateVersion;
               inherit username;
-              unstable-nixpkgs = import unstable-nixpkgs { inherit system; };
-              zpkgs = z.packages.${system};
+              unstable = import unstable { inherit system; };
+              z = z.packages.${system};
             };
+            home-manager.sharedModules = [ ./modules/home-manager ];
           }
         ];
       };

@@ -17,20 +17,20 @@ function switch_home_manager() {
 function install_scripts() {
     local target="$HOME/.local"
     mkdir -p "$target"
-    ln -sft "$target" "$PWD/store/scripts"
+    ln -sft "$target" "$PWD/static/scripts"
 }
 
 function install_neovim() {
     local target="$HOME/.config"
     mkdir -p "$target"
-    ln -sft "$target" "$PWD/store/nvim"
+    ln -sft "$target" "$PWD/static/nvim"
 }
 
 function install_emacs() {
     local target="$HOME/.config/emacs"
     mkdir -p "$target"
-    ln -sft "$target" "$PWD/store/emacs/init.el"
-    ln -sft "$target" "$PWD/store/emacs/early-init.el"
+    ln -sft "$target" "$PWD/static/emacs/init.el"
+    ln -sft "$target" "$PWD/static/emacs/early-init.el"
 }
 
 ######## bash completion context ########
