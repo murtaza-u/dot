@@ -14,6 +14,26 @@
           url = "https://murtazau.xyz/rss.xml";
           tags = [ "technology" ];
         }
+        {
+          url = "https://xeiaso.net/blog.rss";
+          tags = [ "technology" ];
+        }
+        {
+          url = "https://artifacthub.io/api/v1/packages/helm/cert-manager/cert-manager/feed/rss";
+          tags = [ "artifacthub" ];
+        }
+        {
+          url = "https://artifacthub.io/api/v1/packages/helm/prometheus-community/kube-prometheus-stack/feed/rss";
+          tags = [ "artifacthub" ];
+        }
+        {
+          url = "https://artifacthub.io/api/v1/packages/helm/grafana/loki/feed/rss";
+          tags = [ "artifacthub" ];
+        }
+        {
+          url = "https://artifacthub.io/api/v1/packages/helm/bitnami-labs/sealed-secrets/feed/rss";
+          tags = [ "artifacthub" ];
+        }
       ];
       extraConfig = ''
         bind-key j down

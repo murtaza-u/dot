@@ -28,6 +28,7 @@ vim.filetype.add({
             end
         end,
         html = twoSpaceTabs("html"),
+        gohtml = twoSpaceTabs("html"),
         css = twoSpaceTabs("css"),
         js = twoSpaceTabs("javascript"),
         ts = twoSpaceTabs("typescript"),

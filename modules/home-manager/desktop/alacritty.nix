@@ -28,7 +28,7 @@ let
     };
     modusOperandi = {
       primary = {
-        background = "#f8f8ff";
+        background = "#f6f5f4";
         foreground = "#000000";
       };
       normal = {

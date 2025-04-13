@@ -22,7 +22,7 @@
     };
     firewall = {
       enable = true;
-      allowedTCPPorts = [ ];
+      allowedTCPPorts = [ 5000 ];
       allowedUDPPorts = [ ];
     };
   };
@@ -72,4 +72,6 @@
     enable = true;
     disableTaildrop = true;
   };
+
+  services.envfs.enable = true;
 }

@@ -65,7 +65,7 @@ o.updatetime = 100
 o.timeoutlen = 500
 
 -- no cluttering
-o.signcolumn = "no"
+o.signcolumn = "yes"
 
 -- faster escapes
 o.ttimeoutlen = 0

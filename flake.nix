@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { nixpkgs, unstable, home-manager, nur, z, ... }:
+  outputs = { nixpkgs, unstable, home-manager, nur, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -25,6 +25,8 @@
           "zoom"
           "corefonts"
           "mongodb-compass"
+          "obsidian"
+          "cursor"
         ];
         overlays = [ nur.overlays.default ];
       };
@@ -58,7 +60,7 @@
               inherit stateVersion;
               inherit username;
               unstable = import unstable { inherit system; };
-              z = z.packages.${system};
+              z = inputs.z.packages.${system};
             };
             home-manager.sharedModules = [ ./modules/home-manager ];
           }

@@ -1,4 +1,4 @@
-{ pkgs, config, lib, modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
 
 {
   imports = [
@@ -14,7 +14,6 @@
   ];
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.kernelPackages = pkgs.linuxPackages_6_11;
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=1 video_nr=1 card_label="Android DroidCam" exclusive_caps=1
   '';

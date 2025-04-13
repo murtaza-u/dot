@@ -1,3 +1,6 @@
 {
-  imports = [ ./vim.nix ];
+  imports = [
+    ./vim.nix
+    ./vscode.nix
+  ];
 }

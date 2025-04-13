@@ -1,4 +1,4 @@
-{ pkgs, unstable, z, stateVersion, username, ... }:
+{ pkgs, unstable, stateVersion, username, ... }@inputs:
 
 {
   # Let home manager install and manage itself.
@@ -21,13 +21,15 @@
       pkgs.ffmpeg
       pkgs.imagemagick
       pkgs.jq
+      pkgs.yq-go
       pkgs.ripgrep
+      pkgs.kubectl
+      pkgs.kubernetes-helm
+      pkgs.awscli2
+      pkgs.dnsutils
 
       # for everything except frontend development
       unstable.neovim
-
-      # it's actually not that bad
-      pkgs.vscodium
 
       # tried them all, stuck with this. I also use the KeePassXC browser
       # extension.
@@ -38,16 +40,15 @@
 
       # Misc.
       pkgs.gimp
-      pkgs.simplescreenrecorder
-      pkgs.zoom-us
-      pkgs.deadbeef
+      # pkgs.zoom-us
       pkgs.libreoffice
-      pkgs.mongodb-compass
       pkgs.tailscale-systray
-      pkgs.teams-for-linux
+      # pkgs.obsidian
+      pkgs.mongodb-compass
+      # pkgs.ppsspp-sdl-wayland
 
       # https://github.com/murtaza-u/z
-      z.default
+      inputs.z.default
 
       (import ../../../scripts/youtube.nix { inherit pkgs; })
       (import ../../../scripts/docx2pdf.nix { inherit pkgs; })
@@ -84,6 +85,9 @@
     vifm.enable = true;
     newsboat.enable = true;
   };
-  editor.vim.enable = true;
+  editor = {
+    vim.enable = true;
+    vscode.enable = true;
+  };
   system.syncthing.enable = true;
 }

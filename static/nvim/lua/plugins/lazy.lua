@@ -168,4 +168,8 @@ require('lazy').setup({
     },
     "tpope/vim-surround",
     "hashivim/vim-terraform",
+    {
+        "lewis6991/gitsigns.nvim",
+        opts = {},
+    },
 })
