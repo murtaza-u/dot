@@ -6,5 +6,6 @@
     ./zathura.nix
     ./nsxiv.nix
     ./mpv.nix
+    ./plasma.nix
   ];
 }

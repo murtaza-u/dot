@@ -76,6 +76,7 @@
     zathura.enable = true;
     nsxiv.enable = true;
     mpv.enable = true;
+    plasma.enable = true;
   };
   tools = {
     git.enable = true;

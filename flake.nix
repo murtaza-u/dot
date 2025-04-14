@@ -15,8 +15,13 @@
       url = "github:murtaza-u/z/v0.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
-  outputs = { nixpkgs, unstable, home-manager, nur, ... }@inputs:
+  outputs = { nixpkgs, unstable, home-manager, nur, plasma-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -42,14 +47,14 @@
       nixosConfigurations.workstation = lib.nixosSystem {
         inherit system;
         inherit pkgs;
+        specialArgs = {
+          inherit nixpkgs;
+        };
         modules = [
           home-manager.nixosModules.home-manager
           ./modules/nixos
           ./hosts/workstation/nixos
-          {
-            nix.registry.nixpkgs.flake = nixpkgs;
-            system.stateVersion = stateVersion;
-          }
+          { system.stateVersion = stateVersion; }
           {
             home-manager.backupFileExtension = "bkp";
             home-manager.useGlobalPkgs = true;
@@ -62,7 +67,10 @@
               unstable = import unstable { inherit system; };
               z = inputs.z.packages.${system};
             };
-            home-manager.sharedModules = [ ./modules/home-manager ];
+            home-manager.sharedModules = [
+              ./modules/home-manager
+              plasma-manager.homeManagerModules.plasma-manager
+            ];
           }
         ];
       };
