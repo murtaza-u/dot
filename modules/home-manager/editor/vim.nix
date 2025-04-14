@@ -7,6 +7,6 @@
 
   config = lib.mkIf config.editor.vim.enable {
     home.packages = [ pkgs.nvi ];
-    home.file.".vimrc".source = ../../../static/vimrc;
+    home.file.".vimrc".source = ../../../dotfiles/vimrc;
   };
 }

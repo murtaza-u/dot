@@ -34,7 +34,6 @@
         roboto
         noto-fonts-color-emoji
         (nerdfonts.override { fonts = [ "ZedMono" ]; })
-        corefonts
       ];
       fontDir.enable = true;
       fontconfig = {

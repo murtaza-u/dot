@@ -1,16 +1,15 @@
-{ pkgs, unstable, stateVersion, username, ... }@inputs:
+{ pkgs, ... }@inputs:
 
 {
   # Let home manager install and manage itself.
   programs.home-manager.enable = true;
 
   home = {
-    stateVersion = stateVersion;
-    username = username;
-    homeDirectory = "/home/${username}";
+    stateVersion = "24.11";
+    username = inputs.user;
     file = {
-      ".bashrc".source = ../../../static/bashrc;
-      ".bash_profile".source = ../../../static/bash_profile;
+      ".bashrc".source = ../../../dotfiles/bashrc;
+      ".bash_profile".source = ../../../dotfiles/bash_profile;
     };
     packages = [
       # utilities
@@ -29,7 +28,7 @@
       pkgs.dnsutils
 
       # for everything except frontend development
-      unstable.neovim
+      inputs.unstable.neovim
 
       # tried them all, stuck with this. I also use the KeePassXC browser
       # extension.
@@ -40,12 +39,7 @@
 
       # Misc.
       pkgs.gimp
-      # pkgs.zoom-us
       pkgs.libreoffice
-      pkgs.tailscale-systray
-      # pkgs.obsidian
-      pkgs.mongodb-compass
-      # pkgs.ppsspp-sdl-wayland
 
       # https://github.com/murtaza-u/z
       inputs.z.default
@@ -66,7 +60,7 @@
     # Enable management of XDG base directories.
     enable = true;
     # Pretty colors.
-    configFile.dircolors.source = ../../../static/dircolors;
+    configFile.dircolors.source = ../../../dotfiles/dircolors;
   };
 
   desktop = {

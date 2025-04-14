@@ -6,7 +6,7 @@
   };
 
   config = lib.mkIf config.tools.tmux.enable {
-    home.file.".tmux.conf".source = ../../../static/tmux.conf;
+    home.file.".tmux.conf".source = ../../../dotfiles/tmux.conf;
     home.packages = [ pkgs.tmux ];
   };
 }

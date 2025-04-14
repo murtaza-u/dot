@@ -15,7 +15,7 @@
         signByDefault = true;
       };
       hooks = {
-        pre-commit = ../../../static/git-hooks/pre-commit;
+        pre-commit = ../../../dotfiles/git-hooks/pre-commit;
       };
       extraConfig = {
         init = {
