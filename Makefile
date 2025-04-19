@@ -1,4 +1,4 @@
-.PHONY: switch update clean check dot nvim emacs scripts
+.PHONY: switch update gc clean check dot nvim emacs scripts
 
 INPUT ?= all
 
@@ -12,9 +12,11 @@ else
 	nix flake update $(INPUT)
 endif
 
-clean:
+gc:
 	nix-collect-garbage -d
 	sudo nix-collect-garbage -d
+
+clean:
 	rm -f $(HOME)/.config/nvim
 	rm -f $(HOME)/.local/scripts
 	rm -f $(HOME)/.config/emacs/{init,early-init}.el

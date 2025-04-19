@@ -1,3 +1,5 @@
+vim.g.have_nerd_font = true
+
 local o = vim.opt
 
 -- automatically write files when multiple files are changed
@@ -61,14 +63,14 @@ o.hidden = true
 -- center the cursor while scrolling
 o.scrolloff = 8
 
-o.updatetime = 100
-o.timeoutlen = 500
+-- decrease update time
+o.updatetime = 250
 
--- no cluttering
+-- decrease mapped sequence wait time
+o.timeoutlen = 300
+
+-- gutter for git signs
 o.signcolumn = "yes"
-
--- faster escapes
-o.ttimeoutlen = 0
 
 -- stop vim from silently messing with files that it shouldn't
 o.fixendofline = true
@@ -89,10 +91,21 @@ o.history = 100
 -- ruler format
 o.ruf = "%60(%=%#LineNr#%.50F [%{strlen(&ft)?&ft:'none'}] %l:%c %p%%%)"
 
--- sync clipboard between OS and Neovim
-o.clipboard:append('unnamedplus')
+-- Sync clipboard between OS and Neovim. Schedule the setting after `UiEnter`
+-- because it can increase startup-time.
+vim.schedule(function()
+  o.clipboard = 'unnamedplus'
+end)
 
 -- 24 bit color support
 o.termguicolors = true
 
 o.background = "light"
+
+-- if performing an operation that would fail due to unsaved changes in the
+-- buffer (like `:q`), instead raise a dialog asking if you wish to save the
+-- current file(s)
+o.confirm = true
+
+-- Enable mouse mode, can be useful for resizing splits for example!
+o.mouse = 'a'
