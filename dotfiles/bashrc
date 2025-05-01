@@ -194,7 +194,8 @@ fi
 
 # --------------------------------- prompt ------------------------------------
 multiline_prompt=0
-hostinfo=0
+show_hostinfo=0
+show_kubecontext=0
 
 __ps1() {
     # colors
@@ -244,7 +245,7 @@ __ps1() {
         local gitinfo="$reset:$yellow$branch$hash$red$symbols$reset"
     fi
 
-    if [[ "$hostinfo" -ne 0 ]]; then
+    if [[ "$show_hostinfo" -ne 0 ]]; then
         local host="$red\u$reset@$blue\h$reset:"
     fi
 
@@ -253,12 +254,17 @@ __ps1() {
         venv="$green($venv)$reset"
     fi
 
+    local kubecontext
+    if _have kubectl && [[ "$show_kubecontext" -ne 0 ]]; then
+        kubecontext="$magenta〣$(kubectl config current-context)$reset"
+    fi
+
     local nixshell
     if [[  "$PATH" =~ /nix/store ]]; then
         nixshell="$green(shell)$reset"
     fi
 
-    local prompt="$host$cyan\W$gitinfo$venv$nixshell$reset"
+    local prompt="$host$cyan\W$gitinfo$kubecontext$venv$nixshell$reset"
 
     if [[ "$multiline_prompt" -ne 0 ]]; then
         PS1="╔ $prompt\n╚ \$ "

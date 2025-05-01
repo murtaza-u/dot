@@ -12,8 +12,8 @@ return {
         }
     },
     keys = {
-        { '<C-p>', '<CMD>Telescope find_files<CR>' },
-        { '<C-g>', '<CMD>Telescope live_grep<CR>' },
+        { '<C-p>',     '<CMD>Telescope find_files<CR>' },
+        { '<C-g>',     '<CMD>Telescope live_grep<CR>' },
         { '<leader>f', '<CMD>Telescope git_files<CR>' },
         { '<leader>b', '<CMD>Telescope buffers<CR>' },
         { '<leader>D', '<CMD>Telescope diagnostics<CR>' },

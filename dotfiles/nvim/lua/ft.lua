@@ -1,5 +1,5 @@
 local twoSpaceTabs = function(ft)
-    return function(_, bufnr)
+    return function()
         return ft, function(bufnr)
             vim.bo[bufnr].expandtab = true
             vim.bo[bufnr].shiftwidth = 2
@@ -11,7 +11,7 @@ end
 
 vim.filetype.add({
     extension = {
-        go = function(_, bufnr)
+        go = function()
             return "go", function(bufnr)
                 vim.bo[bufnr].expandtab = false
                 vim.bo[bufnr].shiftwidth = 4
@@ -19,7 +19,7 @@ vim.filetype.add({
                 vim.bo[bufnr].softtabstop = 4
             end
         end,
-        templ = function(_, bufnr)
+        templ = function()
             return "templ", function(bufnr)
                 vim.bo[bufnr].expandtab = false
                 vim.bo[bufnr].shiftwidth = 4
@@ -37,7 +37,7 @@ vim.filetype.add({
         nix = twoSpaceTabs("nix"),
         proto = twoSpaceTabs("proto"),
         tf = twoSpaceTabs("tf"),
-        md = function(_, bufnr)
+        md = function()
             return "markdown", function(bufnr)
                 local winid = vim.api.nvim_get_current_win()
                 vim.wo[winid][0].spell = true

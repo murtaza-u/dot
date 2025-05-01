@@ -7,10 +7,7 @@
   home = {
     stateVersion = "24.11";
     username = inputs.user;
-    file = {
-      ".bashrc".source = ../../../dotfiles/bashrc;
-      ".bash_profile".source = ../../../dotfiles/bash_profile;
-    };
+    file.".bash_profile".source = ../../../dotfiles/bash_profile;
     packages = [
       # utilities
       pkgs.xclip
@@ -25,6 +22,7 @@
       pkgs.kubectl
       pkgs.kubernetes-helm
       pkgs.awscli2
+      pkgs.doctl
       pkgs.dnsutils
 
       # for everything except frontend development
@@ -79,6 +77,7 @@
     tmux.enable = true;
     vifm.enable = true;
     newsboat.enable = true;
+    k9s.enable = false;
   };
   editor = {
     vim.enable = true;

@@ -1,4 +1,4 @@
-.PHONY: switch update gc clean check dot nvim emacs scripts
+.PHONY: switch update gc clean check dot bashrc nvim emacs scripts
 
 INPUT ?= all
 
@@ -24,7 +24,10 @@ clean:
 check:
 	nix flake check
 
-dot: nvim emacs scripts
+dot: bashrc nvim emacs scripts
+
+bashrc:
+	ln -sfT $(PWD)/dotfiles/bashrc $(HOME)/.bashrc
 
 nvim: target := $(HOME)/.config
 nvim:

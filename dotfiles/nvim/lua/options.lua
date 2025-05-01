@@ -94,7 +94,7 @@ o.ruf = "%60(%=%#LineNr#%.50F [%{strlen(&ft)?&ft:'none'}] %l:%c %p%%%)"
 -- Sync clipboard between OS and Neovim. Schedule the setting after `UiEnter`
 -- because it can increase startup-time.
 vim.schedule(function()
-  o.clipboard = 'unnamedplus'
+    o.clipboard = 'unnamedplus'
 end)
 
 -- 24 bit color support

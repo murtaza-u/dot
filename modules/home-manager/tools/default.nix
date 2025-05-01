@@ -6,5 +6,6 @@
     ./tmux.nix
     ./vifm.nix
     ./newsboat.nix
+    ./k9s.nix
   ];
 }
