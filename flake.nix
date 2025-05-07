@@ -47,10 +47,19 @@
       )
     //
     {
-      nixosConfigurations.workstation = mkSystem "workstation" rec {
-        system = "x86_64-linux";
-        user = "murtaza";
-        pkgs = import nixpkgs { inherit system; };
+      nixosConfigurations = {
+        primary = mkSystem "primary" rec {
+          system = "x86_64-linux";
+          user = "murtaza";
+          pkgs = import nixpkgs { inherit system; };
+          hostName = "workstation-primary";
+        };
+        secondary = mkSystem "secondary" rec {
+          system = "x86_64-linux";
+          user = "murtaza";
+          pkgs = import nixpkgs { inherit system; };
+          hostName = "workstation-secondary";
+        };
       };
     };
 }

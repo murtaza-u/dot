@@ -4,13 +4,14 @@ name:
 { system
 , user
 , pkgs
+, hostName
 }:
 
 nixpkgs.lib.nixosSystem {
   inherit system pkgs;
 
   specialArgs = {
-    inherit nixpkgs inputs;
+    inherit nixpkgs inputs hostName;
   };
 
   modules = [
@@ -29,7 +30,7 @@ nixpkgs.lib.nixosSystem {
       home-manager.useUserPackages = true;
       home-manager.users.${user} = import ../hosts/${name}/home-manager;
       home-manager.extraSpecialArgs = {
-        inherit nixpkgs inputs pkgs system user;
+        inherit nixpkgs inputs pkgs system user hostName;
         unstable = import inputs.unstable-nixpkgs { inherit system; };
         z = inputs.z.packages.${system};
       };

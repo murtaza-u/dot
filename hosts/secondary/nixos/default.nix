@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ hostName, ... }:
 
 {
   imports = [ ./hardware.nix ];
@@ -17,7 +17,7 @@
   };
 
   networking = {
-    hostName = "workstation";
+    inherit hostName;
     networkmanager = {
       enable = true;
       insertNameservers = [ "1.1.1.3" "1.0.0.3" ];
