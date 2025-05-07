@@ -105,6 +105,12 @@ return {
                         },
                     }
                 },
+                terraformls = {
+                    binary = 'terraform-ls',
+                },
+                tflint = {
+                    binary = 'tflint',
+                },
             }
 
             local lspconfig = require("lspconfig")
