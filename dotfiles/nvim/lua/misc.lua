@@ -15,11 +15,11 @@ autocmd('TextYankPost', {
     end,
 })
 
-autocmd({ "BufWritePre" }, {
-    group = augroup('TrimLeadingSpace', {}),
-    pattern = "*",
-    command = [[%s/\s\+$//e]],
-})
+-- autocmd({ "BufWritePre" }, {
+--     group = augroup('TrimLeadingSpace', {}),
+--     pattern = "*",
+--     command = [[%s/\s\+$//e]],
+-- })
 
 autocmd({ "BufReadPost" }, {
     group = augroup('RememberLastPosition', {}),

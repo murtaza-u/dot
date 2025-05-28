@@ -5,7 +5,7 @@
   programs.home-manager.enable = true;
 
   home = {
-    stateVersion = "24.11";
+    stateVersion = "25.05";
     username = inputs.user;
     file.".bash_profile".source = ../../../dotfiles/bash_profile;
     packages = [
@@ -14,11 +14,13 @@
       pkgs.file
       pkgs.tree
       pkgs.bc
+      pkgs.lm_sensors
       pkgs.ffmpeg
       pkgs.imagemagick
       pkgs.jq
       pkgs.yq-go
       pkgs.ripgrep
+      pkgs.fzf
       pkgs.kubectl
       pkgs.kubernetes-helm
       pkgs.awscli2
@@ -34,11 +36,13 @@
 
       # linux ISOs.
       pkgs.qbittorrent
+      pkgs.transmission-remote-gtk
 
       # Misc.
       pkgs.gimp
       pkgs.libreoffice
       pkgs.kdePackages.kdeconnect-kde
+      inputs.unstable.zeroad
 
       # https://github.com/murtaza-u/z
       inputs.z.default
@@ -52,6 +56,7 @@
       (import ../../../scripts/extract.nix { inherit pkgs; })
       (import ../../../scripts/media-duration.nix { inherit pkgs; })
       (import ../../../scripts/stopwatch.nix { inherit pkgs; })
+      (import ../../../scripts/k.nix { inherit pkgs; })
     ];
   };
 

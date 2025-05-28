@@ -27,5 +27,5 @@
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  environment.systemPackages = with pkgs; [ nvi ];
+  environment.systemPackages = with pkgs; [ vim ];
 }

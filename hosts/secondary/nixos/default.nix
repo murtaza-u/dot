@@ -69,13 +69,7 @@
   # Cross-compilation.
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  # Tailscale.
-  services.tailscale = {
-    enable = true;
-    disableTaildrop = true;
-  };
-
   services.envfs.enable = true;
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }

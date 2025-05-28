@@ -168,7 +168,7 @@ clone() {
     echo gh repo clone "$user/$name" -- --recurse-submodule
     gh repo clone "$user/$name" -- --recurse-submodule
     cd "$name"
-} && export -f clone
+}
 
 # -------------------------- tab completion -----------------------------------
 if ! shopt -oq posix; then
@@ -193,11 +193,11 @@ if [[ -f "$REPOS/github.com/murtaza-u/site/note" ]]; then
 fi
 
 # --------------------------------- prompt ------------------------------------
-multiline_prompt=0
-show_hostinfo=0
-show_kubecontext=0
-
 __ps1() {
+    local multiline_prompt="${PROMPT_MULTILINE_ENABLED:-0}"
+    local show_hostinfo="${PROMPT_HOSTINFO_ENABLED:-0}"
+    local show_kubecontext="${PROMPT_KUBECONTEXT_ENABLED:-0}"
+
     # colors
     local red='\[\e[1;31m\]'
     local green='\[\e[1;32m\]'

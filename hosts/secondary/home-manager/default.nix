@@ -5,7 +5,7 @@
   programs.home-manager.enable = true;
 
   home = {
-    stateVersion = "24.11";
+    stateVersion = "25.05";
     username = inputs.user;
     file.".bash_profile".source = ../../../dotfiles/bash_profile;
     packages = [
@@ -19,6 +19,7 @@
       pkgs.jq
       pkgs.yq-go
       pkgs.ripgrep
+      pkgs.fzf
       pkgs.kubectl
       pkgs.kubernetes-helm
       pkgs.awscli2
@@ -52,6 +53,7 @@
       (import ../../../scripts/extract.nix { inherit pkgs; })
       (import ../../../scripts/media-duration.nix { inherit pkgs; })
       (import ../../../scripts/stopwatch.nix { inherit pkgs; })
+      (import ../../../scripts/k.nix { inherit pkgs; })
     ];
   };
 

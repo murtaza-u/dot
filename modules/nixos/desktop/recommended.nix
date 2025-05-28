@@ -33,7 +33,7 @@
       packages = with pkgs; [
         roboto
         noto-fonts-color-emoji
-        (nerdfonts.override { fonts = [ "ZedMono" ]; })
+        nerd-fonts.zed-mono
       ];
       fontDir.enable = true;
       fontconfig = {

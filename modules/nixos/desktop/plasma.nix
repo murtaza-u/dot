@@ -11,7 +11,7 @@
       enable = true;
       wayland.enable = true;
     };
-    environment.plasma6.excludePackages = with pkgs.kdePackages // pkgs; [
+    environment.plasma6.excludePackages = with pkgs // pkgs.kdePackages; [
       konsole
       ark
       gwenview

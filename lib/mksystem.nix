@@ -5,13 +5,14 @@ name:
 , user
 , pkgs
 , hostName
+, extraModules ? [ ]
 }:
 
 nixpkgs.lib.nixosSystem {
   inherit system pkgs;
 
   specialArgs = {
-    inherit nixpkgs inputs hostName;
+    inherit nixpkgs inputs user hostName;
   };
 
   modules = [
@@ -39,5 +40,5 @@ nixpkgs.lib.nixosSystem {
         inputs.plasma-manager.homeManagerModules.plasma-manager
       ];
     }
-  ];
+  ] ++ extraModules;
 }
