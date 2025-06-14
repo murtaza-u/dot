@@ -35,6 +35,7 @@ return {
                 -- language to the list of additional_vim_regex_highlighting
                 -- and disabled languages for indent.
                 additional_vim_regex_highlighting = { 'markdown' },
+                disable = { "just" },
             },
             indent = {
                 enable = true,

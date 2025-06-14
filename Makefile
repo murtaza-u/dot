@@ -1,9 +1,10 @@
 .PHONY: switch update gc clean check dot bashrc nvim emacs scripts
 
 INPUT ?= all
+HOST ?= primary
 
 switch:
-	sudo nixos-rebuild switch --flake .
+	sudo nixos-rebuild switch --flake ".#$(HOST)"
 
 update:
 ifeq ($(INPUT),all)

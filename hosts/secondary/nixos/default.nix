@@ -69,7 +69,5 @@
   # Cross-compilation.
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  services.envfs.enable = true;
-
   system.stateVersion = "25.05";
 }

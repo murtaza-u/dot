@@ -38,8 +38,6 @@
 
       # Misc.
       pkgs.gimp
-      pkgs.libreoffice
-      pkgs.kdePackages.kdeconnect-kde
 
       # https://github.com/murtaza-u/z
       inputs.z.default

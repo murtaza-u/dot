@@ -40,8 +40,7 @@
 
       # Misc.
       pkgs.gimp
-      pkgs.libreoffice
-      pkgs.kdePackages.kdeconnect-kde
+      pkgs.kdePackages.calligra
       inputs.unstable.zeroad
 
       # https://github.com/murtaza-u/z
@@ -87,7 +86,7 @@
   };
   editor = {
     vim.enable = true;
-    vscode.enable = true;
+    helix.enable = true;
   };
   system.syncthing.enable = true;
 }

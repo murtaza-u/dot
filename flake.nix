@@ -25,9 +25,7 @@
   };
   outputs = { nixpkgs, flake-utils, ... }@inputs:
     let
-      mkSystem = import ./lib/mksystem.nix {
-        inherit nixpkgs inputs;
-      };
+      mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
     in
     flake-utils.lib.eachDefaultSystem
       (system:
@@ -52,13 +50,7 @@
         primary = mkSystem "primary" rec {
           system = "x86_64-linux";
           user = "murtaza";
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfreePredicate = p: builtins.elem (pkgs.lib.getName p) [
-              "steam"
-              "steam-unwrapped"
-            ];
-          };
+          pkgs = import nixpkgs { inherit system; };
           hostName = "workstation-primary";
           extraModules = [ inputs.nixos-hardware.nixosModules.common-gpu-intel ];
         };
