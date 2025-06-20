@@ -96,17 +96,12 @@ bind -m vi-command 'Control-l: clear-screen'
 bind -m vi-insert 'Control-l: clear-screen'
 
 if _have nvim; then
-     alias vi=nvim
-     export EDITOR=nvim
-     export VISUAL=nvim
+    alias vi=nvim
 elif _have vim; then
     alias vi=vim
-    export EDITOR=vim
-    export VISUAL=vim
-else
-    export EDITOR=vi
-    export VISUAL=vi
 fi
+
+export EDITOR=hx
 
 # ----------------------------------- pager -----------------------------------
 if [[ -x /usr/bin/lesspipe ]]; then

@@ -2,10 +2,20 @@
 
 {
   options = {
-    editor.helix.enable = lib.mkEnableOption "Enable helix";
+    editor.helix = {
+      enable = lib.mkEnableOption "Enable helix";
+      defaultEditor = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Set helix as the default editor";
+      };
+    };
   };
 
   config = lib.mkIf config.editor.helix.enable {
+    home.sessionVariables = lib.mkIf config.editor.helix.defaultEditor {
+      EDITOR = "hx";
+    };
     programs.helix = {
       enable = true;
       package = unstable.helix;
@@ -25,28 +35,24 @@
             render = true;
             skip-levels = 1;
           };
+          file-picker.hidden = false;
         };
         keys.normal = {
           esc = [ "collapse_selection" "keep_primary_selection" ];
           C-p = [ "file_picker" ];
+          Z = { Q = ":quit!"; Z = ":write-quit!"; };
         };
       };
-      languages = {
-        formatter = {
-          command = "sed";
-          args = [ "s/[ \t]*$//" ];
-        };
-        auto-format = true;
-        language = [
-          {
-            name = "nix";
-            formatter = { command = "nixpkgs-fmt"; };
-          }
-        ];
-      };
+      languages.language = [
+        {
+          name = "nix";
+          formatter = { command = "nixpkgs-fmt"; };
+          auto-format = true;
+        }
+      ];
       themes.modus_operandi_transparent = {
         inherits = "modus_operandi";
-        "ui.background" = { fg = "foreground"; };
+        "ui.background" = { };
         "ui.gutter" = { };
       };
     };

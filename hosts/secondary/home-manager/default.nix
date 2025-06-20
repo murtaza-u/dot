@@ -26,9 +26,6 @@
       pkgs.doctl
       pkgs.dnsutils
 
-      # for everything except frontend development
-      inputs.unstable.neovim
-
       # tried them all, stuck with this. I also use the KeePassXC browser
       # extension.
       pkgs.keepassxc
@@ -81,8 +78,10 @@
     k9s.enable = false;
   };
   editor = {
-    vim.enable = true;
-    vscode.enable = true;
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
   };
   system.syncthing.enable = true;
 }

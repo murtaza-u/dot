@@ -66,5 +66,7 @@
   # Cross-compilation.
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  programs.gamemode.enable = true;
+
   system.stateVersion = "25.05";
 }

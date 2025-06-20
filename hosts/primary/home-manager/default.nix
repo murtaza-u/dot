@@ -27,9 +27,6 @@
       pkgs.doctl
       pkgs.dnsutils
 
-      # for everything except frontend development
-      inputs.unstable.neovim
-
       # tried them all, stuck with this. I also use the KeePassXC browser
       # extension.
       pkgs.keepassxc
@@ -41,7 +38,18 @@
       # Misc.
       pkgs.gimp
       pkgs.kdePackages.calligra
+
+      # Gaming.
       inputs.unstable.zeroad
+      (pkgs.retroarch.withCores (cores: with cores; [
+        pcsx2
+        ppsspp
+        dolphin
+        mgba
+      ]))
+      pkgs.gamescope
+      pkgs.mangohud
+      pkgs.heroic
 
       # https://github.com/murtaza-u/z
       inputs.z.default
@@ -85,8 +93,11 @@
     k9s.enable = false;
   };
   editor = {
-    vim.enable = true;
-    helix.enable = true;
+    neovim.enable = true;
+    helix = {
+      enable = true;
+      defaultEditor = true;
+    };
   };
   system.syncthing.enable = true;
 }

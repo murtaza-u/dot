@@ -1,7 +1,8 @@
 {
   imports = [
     ./vim.nix
-    ./vscode.nix
+    ./neovim.nix
     ./helix.nix
+    ./vscode.nix
   ];
 }
