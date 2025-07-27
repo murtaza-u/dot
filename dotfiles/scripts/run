@@ -6,6 +6,11 @@ if [ "$img" = "grafana" ]; then
     docker run --name=grafana -p 3000:3000  --network host grafana/grafana:11.6.0
 fi
 
+if [ "$img" = "redis" ]; then
+    docker run -d --rm --name redis --hostname redis -p 6379:6379 redis:8.0.3-alpine
+    exit 0
+fi
+
 if [ "$img" = "postgres" ]; then
     echo "POSTGRES_USER: postgres"
     echo "POSTGRES_PASSWORD: postgres"
@@ -14,7 +19,7 @@ if [ "$img" = "postgres" ]; then
     data="$HOME/.local/share/postgres"
     mkdir "$data" -p
 
-    exec docker run -d \
+    docker run -d \
         --rm \
         --name postgres \
         --hostname postgres \
@@ -33,7 +38,7 @@ if [ "$img" = "mysql" ]; then
     data="$HOME/.local/share/mysql"
     mkdir "$data" -p
 
-    exec docker run -d \
+    docker run -d \
         --rm \
         --name mysql \
         --hostname mysql \
@@ -50,7 +55,7 @@ if [ "$img" = "mariadb" ]; then
     data="$HOME/.local/share/mariadb"
     mkdir "$data" -p
 
-    exec docker run -d \
+    docker run -d \
         --rm \
         --name mariadb \
         --hostname mariadb \
@@ -65,7 +70,7 @@ if [ "$img" = "keye" ]; then
     data="$HOME/.local/share/keye"
     mkdir "$data" -p
 
-    exec docker run -it -d \
+    docker run -it -d \
         --name keye \
         -p 23023:23023 \
         -v "$data:/data" \
@@ -86,7 +91,7 @@ if [ "$img" = "mongo" ]; then
     data="$HOME/.local/share/mongodb"
     mkdir "$data" -p
 
-    exec docker run -d \
+    docker run -d \
         --rm \
         --name mongo \
         --hostname mongo \

@@ -41,15 +41,11 @@
 
       # Gaming.
       inputs.unstable.zeroad
-      (pkgs.retroarch.withCores (cores: with cores; [
-        pcsx2
-        ppsspp
-        dolphin
-        mgba
-      ]))
       pkgs.gamescope
       pkgs.mangohud
       pkgs.heroic
+      pkgs.wineWowPackages.stable
+      pkgs.winetricks
 
       # https://github.com/murtaza-u/z
       inputs.z.default
@@ -95,7 +91,7 @@
   editor = {
     neovim.enable = true;
     helix = {
-      enable = true;
+      enable = false;
       defaultEditor = true;
     };
   };

@@ -111,6 +111,9 @@ return {
                 tflint = {
                     binary = 'tflint',
                 },
+                pyright = {
+                    binary = 'pyright',
+                },
             }
 
             local lspconfig = require("lspconfig")
