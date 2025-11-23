@@ -4,6 +4,7 @@
   imports = [
     ./virtualisation.nix
     ./channels.nix
+    ./tailscale.nix
   ];
 
   nix = {

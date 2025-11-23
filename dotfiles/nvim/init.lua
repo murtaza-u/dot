@@ -1,5 +1,5 @@
+require("bootstrap-lazy")
 require("options")
 require("keymaps")
 require("ft")
 require("misc")
-require("bootstrap-lazy")

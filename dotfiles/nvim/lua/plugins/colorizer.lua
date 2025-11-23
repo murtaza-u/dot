@@ -1,14 +1,8 @@
+vim.opt.termguicolors = true
+
 return {
-    'norcalli/nvim-colorizer.lua',
-    ft = {
-        "html",
-        "css",
-        "javascript",
-        "typescript",
-        "templ",
-        "yaml",
-        "nix",
-        "lua",
-    },
-    opts = {},
+   'norcalli/nvim-colorizer.lua',
+   config = function()
+      require('colorizer').setup()
+   end,
 }

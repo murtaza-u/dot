@@ -25,6 +25,10 @@
       pkgs.kubernetes-helm
       pkgs.awscli2
       pkgs.doctl
+      (pkgs.google-cloud-sdk.withExtraComponents (with pkgs.google-cloud-sdk.components; [
+        gke-gcloud-auth-plugin
+      ]))
+      pkgs.azure-cli
       pkgs.dnsutils
 
       # tried them all, stuck with this. I also use the KeePassXC browser
@@ -37,15 +41,17 @@
 
       # Misc.
       pkgs.gimp
-      pkgs.kdePackages.calligra
+      pkgs.libreoffice
+      pkgs.zoom-us
+      pkgs.kdePackages.krdc
 
       # Gaming.
-      inputs.unstable.zeroad
       pkgs.gamescope
       pkgs.mangohud
       pkgs.heroic
       pkgs.wineWowPackages.stable
       pkgs.winetricks
+      pkgs.prismlauncher
 
       # https://github.com/murtaza-u/z
       inputs.z.default
@@ -78,6 +84,7 @@
     nsxiv.enable = true;
     mpv.enable = true;
     plasma.enable = true;
+    obs.enable = true;
   };
   tools = {
     git.enable = true;
@@ -89,9 +96,8 @@
     k9s.enable = false;
   };
   editor = {
-    neovim.enable = true;
-    helix = {
-      enable = false;
+    neovim = {
+      enable = true;
       defaultEditor = true;
     };
   };

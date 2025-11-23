@@ -50,7 +50,14 @@
         primary = mkSystem "primary" rec {
           system = "x86_64-linux";
           user = "murtaza";
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfreePredicate = p: builtins.elem (pkgs.lib.getName p) [
+              "zoom"
+              "steam"
+              "steam-unwrapped"
+            ];
+          };
           hostName = "workstation-primary";
           extraModules = [ inputs.nixos-hardware.nixosModules.common-gpu-intel ];
         };

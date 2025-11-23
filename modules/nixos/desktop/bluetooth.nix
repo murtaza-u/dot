@@ -7,6 +7,6 @@
 
   config = lib.mkIf config.desktop.bluetooth.enable {
     hardware.bluetooth.enable = true;
-    services.blueman.enable = config.desktop.plasma.enable == false;
+    services.blueman.enable = config.desktop.plasma.enable == false && config.desktop.gnome.enable == false;
   };
 }

@@ -32,6 +32,7 @@
 
       # linux ISOs.
       pkgs.qbittorrent
+      pkgs.transmission-remote-gtk
 
       # Misc.
       pkgs.gimp
@@ -83,5 +84,4 @@
       defaultEditor = true;
     };
   };
-  system.syncthing.enable = true;
 }

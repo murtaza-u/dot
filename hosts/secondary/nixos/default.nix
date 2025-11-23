@@ -24,7 +24,7 @@
     };
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 5000 ];
+      allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
     };
   };
@@ -51,12 +51,13 @@
   # Use your phone as webcam.
   programs.droidcam.enable = true;
 
-  # Enable docker & libvirtd
+  # Enable docker & libvirtd.
   system.virtualisation = {
     docker.enable = true;
     libvirtd.enable = true;
   };
 
+  # Desktop environment & necessary settings.
   desktop = {
     recommended = {
       enable = true;

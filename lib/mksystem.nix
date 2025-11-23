@@ -37,7 +37,7 @@ nixpkgs.lib.nixosSystem {
       };
       home-manager.sharedModules = [
         ../modules/home-manager
-        inputs.plasma-manager.homeManagerModules.plasma-manager
+        inputs.plasma-manager.homeModules.plasma-manager
       ];
     }
   ] ++ extraModules;

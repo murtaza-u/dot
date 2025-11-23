@@ -7,5 +7,6 @@
     ./nsxiv.nix
     ./mpv.nix
     ./plasma.nix
+    ./obs.nix
   ];
 }

@@ -62,9 +62,43 @@ let
         }
       ];
     };
+    modusVivendi = {
+      primary = {
+        background = "#1d2120";
+        foreground = "#ffffff";
+      };
+      normal = {
+        black = "#1e1e1e";
+        red = "#ff5f59";
+        green = "#44bc44";
+        yellow = "#d0bc00";
+        blue = "#2fafff";
+        magenta = "#feacd0";
+        cyan = "#00d3d0";
+        white = "#ffffff";
+      };
+      bright = {
+        black = "#535353";
+        red = "#ff7f9f";
+        green = "#00c06f";
+        yellow = "#dfaf7a";
+        blue = "#00bcff";
+        magenta = "#b6a0ff";
+        cyan = "#6ae4b9";
+        white = "#989898";
+      };
+      cursor = {
+        cursor = "#ffffff";
+        text = "#000000";
+      };
+      selection = {
+        background = "#5a5a5a";
+        text = "#ffffff";
+      };
+    };
     gruvboxDark = {
       primary = {
-        background = "#1d2021";
+        background = "#282828";
         foreground = "#ebdbb2";
       };
       normal = {
@@ -121,6 +155,42 @@ let
         {
           index = 17;
           color = "#c64343";
+        }
+      ];
+    };
+    tokyonightNight = {
+      primary = {
+        background = "#181818";
+        foreground = "#c0caf5";
+      };
+      normal = {
+        black = "#15161e";
+        red = "#f7768e";
+        green = "#9ece6a";
+        yellow = "#e0af68";
+        blue = "#7aa2f7";
+        magenta = "#bb9af7";
+        cyan = "#7dcfff";
+        white = "#a9b1d6";
+      };
+      bright = {
+        black = "#414868";
+        red = "#ff899d";
+        green = "#9fe044";
+        yellow = "#faba4a";
+        blue = "#8db0ff";
+        magenta = "#c7a9ff";
+        cyan = "#a4daff";
+        white = "#c0caf5";
+      };
+      indexed_colors = [
+        {
+          index = 16;
+          color = "#ff9e64";
+        }
+        {
+          index = 17;
+          color = "#db4b4b";
         }
       ];
     };

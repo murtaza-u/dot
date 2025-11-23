@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
 let
-  wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/ScarletTree/contents/images/5120x2880.png";
+  wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/IceCold/contents/images/5120x2880.png";
 in
 {
   options = {

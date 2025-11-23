@@ -1,4 +1,4 @@
-{ hostName, ... }:
+{ pkgs, hostName, ... }:
 
 {
   imports = [ ./hardware.nix ];
@@ -24,7 +24,7 @@
     };
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 5000 ];
+      allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
     };
   };
@@ -48,12 +48,16 @@
     ];
   };
 
-  # Enable docker & libvirtd
+  # Enable docker & libvirtd.
   system.virtualisation = {
     docker.enable = true;
     libvirtd.enable = true;
   };
 
+  # Tailscale.
+  system.tailscale.enable = true;
+
+  # Desktop environment & necessary settings.
   desktop = {
     recommended = {
       enable = true;
@@ -66,7 +70,18 @@
   # Cross-compilation.
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  programs.gamemode.enable = true;
+  # Gaming.
+  programs = {
+    gamemode.enable = true;
+    steam = {
+      enable = true;
+      # https://github.com/NixOS/nixpkgs/issues/25444
+      package = pkgs.steam.override {
+        extraPkgs = p: [ p.kdePackages.breeze ];
+      };
+      gamescopeSession.enable = true;
+    };
+  };
 
   system.stateVersion = "25.05";
 }

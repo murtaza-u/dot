@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ config, lib, ... }:
 
 {
   options = {
@@ -6,7 +6,8 @@
   };
 
   config = lib.mkIf config.system.syncthing.enable {
-    services.syncthing.enable = true;
-    home.packages = [ pkgs.syncthingtray ];
+    services.syncthing = {
+      enable = true;
+    };
   };
 }

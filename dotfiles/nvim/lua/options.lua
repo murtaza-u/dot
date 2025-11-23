@@ -77,35 +77,37 @@ o.fixendofline = true
 
 -- better ascii friendly listchars
 o.listchars = {
-    space = "*",
-    trail = "*",
-    nbsp = "*",
-    extends = ">",
-    precedes = "<",
-    tab = "|>",
+   space = "*",
+   trail = "*",
+   nbsp = "*",
+   extends = ">",
+   precedes = "<",
+   tab = "|>",
 }
 
 -- command history
 o.history = 100
 
 -- ruler format
-o.ruf = "%60(%=%#LineNr#%.50F [%{strlen(&ft)?&ft:'none'}] %l:%c %p%%%)"
+-- o.ruf = "%60(%=%#LineNr#%.50F [%{strlen(&ft)?&ft:'none'}] %l:%c %p%%%)"
 
 -- Sync clipboard between OS and Neovim. Schedule the setting after `UiEnter`
 -- because it can increase startup-time.
 vim.schedule(function()
-    o.clipboard = 'unnamedplus'
+   o.clipboard = 'unnamedplus'
 end)
 
 -- 24 bit color support
 o.termguicolors = true
 
 o.background = "light"
-
--- if performing an operation that would fail due to unsaved changes in the
--- buffer (like `:q`), instead raise a dialog asking if you wish to save the
--- current file(s)
--- o.confirm = true
+if vim.o.background == "dark" then
+   vim.cmd.colorscheme("tokyonight")
+else
+   vim.cmd.colorscheme("modus")
+end
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 o.mouse = 'a'
+
+o.textwidth = 78
