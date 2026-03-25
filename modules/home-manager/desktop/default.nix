@@ -8,5 +8,6 @@
     ./mpv.nix
     ./plasma.nix
     ./obs.nix
+    ./gaming.nix
   ];
 }

@@ -1,11 +1,11 @@
-{ pkgs, ... }@inputs:
+{ pkgs, unstablePkgs, ... }@inputs:
 
 {
   # Let home manager install and manage itself.
   programs.home-manager.enable = true;
 
   home = {
-    stateVersion = "25.05";
+    stateVersion = "25.11";
     username = inputs.user;
     file.".bash_profile".source = ../../../dotfiles/bash_profile;
     packages = [
@@ -43,15 +43,12 @@
       pkgs.gimp
       pkgs.libreoffice
       pkgs.zoom-us
+      pkgs.slack
       pkgs.kdePackages.krdc
-
-      # Gaming.
-      pkgs.gamescope
-      pkgs.mangohud
-      pkgs.heroic
-      pkgs.wineWowPackages.stable
-      pkgs.winetricks
-      pkgs.prismlauncher
+      pkgs.bubblewrap # for codex-cli
+      unstablePkgs.claude-code
+      unstablePkgs.opencode
+      unstablePkgs.zeroad
 
       # https://github.com/murtaza-u/z
       inputs.z.default
@@ -85,6 +82,7 @@
     mpv.enable = true;
     plasma.enable = true;
     obs.enable = true;
+    gaming.enable = true;
   };
   tools = {
     git.enable = true;

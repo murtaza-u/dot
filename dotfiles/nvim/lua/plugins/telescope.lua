@@ -8,6 +8,7 @@ return {
          build = 'make',
       }
    },
+   lazy = false,
    keys = {
       { '<C-p>',     '<CMD>Telescope find_files<CR>' },
       { '<C-g>',     '<CMD>Telescope live_grep<CR>' },
@@ -15,6 +16,7 @@ return {
       { '<leader>b', '<CMD>Telescope buffers<CR>' },
       { '<leader>D', '<CMD>Telescope diagnostics<CR>' },
       { '<leader>d', '<CMD>lua require("telescope.builtin").diagnostics({ bufnr=0 })<CR>' },
+      { '<C-space>', '<CMD>Telescope git_status<CR>' },
    },
    config = function()
       local actions = require("telescope.actions")

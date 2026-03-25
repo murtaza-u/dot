@@ -28,7 +28,7 @@ if [ "$img" = "postgres" ]; then
         --env PGDATA=/var/lib/postgresql/data/pgdata \
         --volume="$data:/var/lib/postgresql/data:Z" \
         -p 5432:5432 \
-        postgres:17.2-alpine3.21
+        postgres:18
     exit 0
 fi
 

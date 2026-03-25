@@ -11,7 +11,7 @@
       platformTheme.name = "gtk";
       style = {
         name = "Breeze";
-        package = pkgs.breeze-qt5;
+        package = pkgs.kdePackages.breeze;
       };
     };
   };

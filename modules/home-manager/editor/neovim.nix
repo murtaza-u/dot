@@ -1,4 +1,4 @@
-{ config, lib, unstable, ... }:
+{ config, lib, unstablePkgs, ... }:
 
 {
   options = {
@@ -16,6 +16,6 @@
     home.sessionVariables = lib.mkIf config.editor.neovim.defaultEditor {
       EDITOR = "nvim";
     };
-    home.packages = [ unstable.neovim ];
+    home.packages = [ unstablePkgs.neovim ];
   };
 }

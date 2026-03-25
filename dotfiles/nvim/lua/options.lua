@@ -102,7 +102,8 @@ o.termguicolors = true
 
 o.background = "light"
 if vim.o.background == "dark" then
-   vim.cmd.colorscheme("tokyonight")
+   -- vim.cmd.colorscheme("tokyonight")
+   vim.cmd.colorscheme("gruvbox-material")
 else
    vim.cmd.colorscheme("modus")
 end
@@ -110,4 +111,4 @@ end
 -- Enable mouse mode, can be useful for resizing splits for example!
 o.mouse = 'a'
 
-o.textwidth = 78
+o.textwidth = 80

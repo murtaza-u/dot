@@ -32,7 +32,7 @@ let
         foreground = "#000000";
       };
       normal = {
-        black = "#a9a9a9";
+        black = "#f2f2f2";
         red = "#a60000";
         green = "#006800";
         yellow = "#6f5500";
@@ -42,13 +42,13 @@ let
         white = "#000000";
       };
       bright = {
-        black = "#708090";
-        red = "#d00000";
-        green = "#008900";
-        yellow = "#808000";
-        blue = "#0000ff";
-        magenta = "#dd22dd";
-        cyan = "#008899";
+        black = "#c4c4c4";
+        red = "#a0132f";
+        green = "#00663f";
+        yellow = "#7a4f2f";
+        blue = "#0000b0";
+        magenta = "#531ab6";
+        cyan = "#005f5f";
         white = "#595959";
       };
       indexed_colors = [
@@ -98,7 +98,7 @@ let
     };
     gruvboxDark = {
       primary = {
-        background = "#282828";
+        background = "#1d2021";
         foreground = "#ebdbb2";
       };
       normal = {
@@ -106,7 +106,7 @@ let
         red = "#cc241d";
         green = "#98971a";
         yellow = "#d79921";
-        blue = "#458588";
+        blue = "#83a598";
         magenta = "#b16286";
         cyan = "#689d6a";
         white = "#a89984";
@@ -116,7 +116,7 @@ let
         red = "#fb4934";
         green = "#b8bb26";
         yellow = "#fabd2f";
-        blue = "#83a598";
+        blue = "#458588";
         magenta = "#d3869b";
         cyan = "#8ec07c";
         white = "#ebdbb2";

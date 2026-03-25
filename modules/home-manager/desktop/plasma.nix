@@ -73,15 +73,15 @@ in
       kscreenlocker.autoLock = false;
       fonts = rec {
         fixedWidth = {
-          family = "ZedMono Nerd Font";
+          family = "Monospace";
           pointSize = 11;
         };
         general = {
-          family = "Roboto Condensed";
+          family = "Sans Serif";
           pointSize = 11;
         };
         small = {
-          family = "Roboto Condensed";
+          family = "Serif";
           pointSize = 10;
         };
         toolbar = general;

@@ -5,7 +5,7 @@
   programs.home-manager.enable = true;
 
   home = {
-    stateVersion = "25.05";
+    stateVersion = "25.11";
     username = inputs.user;
     file.".bash_profile".source = ../../../dotfiles/bash_profile;
     packages = [

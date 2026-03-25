@@ -5,7 +5,10 @@ return {
       lazy = false,
       opts = {
          style = "auto",                   -- "modus_operandi", "modus_vivendi", "auto"
-         variant = "default",              -- "default", "tinted", "deuteranopia", and "tritanopia"
+         variants = {
+            modus_operandi = "default",    -- Set variant for `modus_operandi` style
+            modus_vivendi = "default",     -- Set variant for `modus_vivendi` style
+         },
          transparent = true,               -- transparent background (as supported by the terminal)
          dim_inactive = false,             -- "non-current" windows are dimmed
          hide_inactive_statusline = false, -- hide statuslines on inactive windows
@@ -59,6 +62,18 @@ return {
                fg = "white",
             }
          end,
+      },
+   },
+   {
+      'f4z3r/gruvbox-material.nvim',
+      name = 'gruvbox-material',
+      lazy = false,
+      priority = 1000,
+      opts = {
+         contrast = "hard",
+         background = {
+            transparent = true,
+         },
       },
    },
 }

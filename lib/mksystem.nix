@@ -1,18 +1,19 @@
-{ nixpkgs, inputs }:
+{ inputs }:
 
 name:
 { system
 , user
 , pkgs
+, unstablePkgs
 , hostName
 , extraModules ? [ ]
 }:
 
-nixpkgs.lib.nixosSystem {
+inputs.nixpkgs.lib.nixosSystem {
   inherit system pkgs;
 
   specialArgs = {
-    inherit nixpkgs inputs user hostName;
+    inherit unstablePkgs inputs user hostName;
   };
 
   modules = [
@@ -31,8 +32,7 @@ nixpkgs.lib.nixosSystem {
       home-manager.useUserPackages = true;
       home-manager.users.${user} = import ../hosts/${name}/home-manager;
       home-manager.extraSpecialArgs = {
-        inherit nixpkgs inputs pkgs system user hostName;
-        unstable = import inputs.unstable-nixpkgs { inherit system; };
+        inherit inputs pkgs unstablePkgs system user hostName;
         z = inputs.z.packages.${system};
       };
       home-manager.sharedModules = [

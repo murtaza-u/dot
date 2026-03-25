@@ -72,7 +72,6 @@
 
   # Gaming.
   programs = {
-    gamemode.enable = true;
     steam = {
       enable = true;
       # https://github.com/NixOS/nixpkgs/issues/25444
@@ -83,5 +82,5 @@
     };
   };
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

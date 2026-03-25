@@ -10,16 +10,16 @@
       enable = true;
       theme = {
         name = "Breeze";
-        package = pkgs.breeze-gtk;
+        package = pkgs.kdePackages.breeze-gtk;
       };
       font = {
-        name = "Roboto Medium";
-        size = 13;
+        name = "Roboto";
+        size = 11;
         package = pkgs.roboto;
       };
       iconTheme = {
         name = "breeze";
-        package = pkgs.breeze-icons;
+        package = pkgs.kdePackages.breeze-icons;
       };
       cursorTheme = {
         name = "breeze_cursors";

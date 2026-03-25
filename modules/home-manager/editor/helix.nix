@@ -1,4 +1,4 @@
-{ config, lib, unstable, ... }:
+{ config, lib, unstablePkgs, ... }:
 
 {
   options = {
@@ -18,7 +18,7 @@
     };
     programs.helix = {
       enable = true;
-      package = unstable.helix;
+      package = unstablePkgs.helix;
       settings = {
         theme = "modus_operandi_transparent";
         editor = {

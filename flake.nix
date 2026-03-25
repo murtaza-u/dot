@@ -1,7 +1,7 @@
 {
   description = "Murtaza Udaipurwala's NixOS configuration";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstable-nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-registry = {
       url = "github:nixos/flake-registry";
@@ -9,7 +9,7 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
@@ -25,7 +25,7 @@
   };
   outputs = { nixpkgs, flake-utils, ... }@inputs:
     let
-      mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
+      mkSystem = import ./lib/mksystem.nix { inherit inputs; };
     in
     flake-utils.lib.eachDefaultSystem
       (system:
@@ -54,8 +54,16 @@
             inherit system;
             config.allowUnfreePredicate = p: builtins.elem (pkgs.lib.getName p) [
               "zoom"
+              "slack"
+              "claude-code"
               "steam"
               "steam-unwrapped"
+            ];
+          };
+          unstablePkgs = import inputs.unstable-nixpkgs {
+            inherit system;
+            config.allowUnfreePredicate = p: builtins.elem (pkgs.lib.getName p) [
+              "claude-code"
             ];
           };
           hostName = "workstation-primary";
@@ -65,6 +73,7 @@
           system = "x86_64-linux";
           user = "murtaza";
           pkgs = import nixpkgs { inherit system; };
+          unstablePkgs = import inputs.unstable-nixpkgs { inherit system; };
           hostName = "workstation-secondary";
         };
       };

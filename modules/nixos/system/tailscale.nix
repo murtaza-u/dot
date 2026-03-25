@@ -10,5 +10,8 @@
       enable = true;
       disableTaildrop = true;
     };
+    networking.networkmanager.insertNameservers = [
+      "100.100.100.100"
+    ];
   };
 }
